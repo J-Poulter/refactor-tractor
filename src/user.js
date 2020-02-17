@@ -24,11 +24,11 @@ class User {
     });
   }
 
-  findFavorites(strgToSrch) {
+  findFavorites(searchWord) {
     return this.favoriteRecipes.filter(recipe => {
-      return recipe.name.includes(strgToSrch)
+      return recipe.name.includes(searchWord)
       || recipe.ingredients.find(ingredient => {
-        return ingredient.name.includes(strgToSrch)
+        return ingredient.name.includes(searchWord)
       });
     });
   }

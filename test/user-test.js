@@ -37,9 +37,10 @@ describe('User', () => {
     expect(user1).to.be.an.instanceof(User);
   });
 
-  it('Should have a property of favoriteRecipes with a default value', function() {
-    expect(user1.favoriteRecipes).to.deep.equal([]);
-  });
+  it('Should have a property of favoriteRecipes with a default value',
+    function() {
+      expect(user1.favoriteRecipes).to.deep.equal([]);
+    });
 
   it('Should be able to add recipes to favoriteRecipes', function() {
     user1.addToFavorites(recipeData[0]);
@@ -77,19 +78,31 @@ describe('User', () => {
     expect(user1.findFavorites('egg')).to.deep.equal([recipeData[0]]);
   });
 
-  it('Should be able to return multiple search of favoriteRecipes by ingredient', function(){
-    user1.addToFavorites(recipeData[0]);
-    user1.addToFavorites(recipeData[1]);
-    user1.addToFavorites(recipeData[5]);
+  it('Should be able to return multiple search of favoriteRecipes by ingredient'
+    , function(){
+      user1.addToFavorites(recipeData[0]);
+      user1.addToFavorites(recipeData[1]);
+      user1.addToFavorites(recipeData[5]);
 
-    expect(user1.findFavorites('egg')).to.deep.equal([recipeData[0], recipeData[5]]);
-  });
+      expect(user1.findFavorites('egg')).to.deep.equal([recipeData[0],
+        recipeData[5]]);
+    });
 
-  it('Should be able to search favoriteRecipes name', function(){
+  it('Should be able to search favoriteRecipes by name', function(){
     user1.addToFavorites(recipeData[0]);
     user1.addToFavorites(recipeData[1]);
 
     expect(user1.findFavorites('Chocolate')).to.deep.equal([recipeData[0]]);
+  });
+
+  it('Should be able to search multiple favoriteRecipes by name', function(){
+    user1.addToFavorites(recipeData[0]);
+    user1.addToFavorites(recipeData[1]);
+    user1.addToFavorites(recipeData[3]);
+    user1.addToFavorites(recipeData[6]);
+
+    expect(user1.findFavorites('Chocolate')).to.deep.equal([recipeData[0],
+      recipeData[6]]);
   });
 
   it.skip('Should be able to check ingredients in User/s pantry for a given recipe', () => {
