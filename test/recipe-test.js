@@ -32,9 +32,9 @@ describe('Recipe', () => {
     expect(filteredRecipes.length).to.equal(22);
   })
 
-  // it.only('Should be able to filter recipes by tag', () => {
-  //   let filteredRecipes = recipe.filterRecipesByIngredient('sea salt');
-  //   expect(filteredRecipes.length).to.equal(3);
-  // })
+  it('Should be able to filter recipes by ingredient', () => {
+    let filteredRecipes = recipe.filterRecipesByIngredient('sea salt');
+    expect(filteredRecipes.length).to.equal(3);
+  })
 
 });

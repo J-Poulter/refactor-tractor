@@ -25,10 +25,12 @@ class Recipe {
   filterRecipesByTag(selectedTag) {
     return this.recipeData.filter(recipe => recipe.tags.includes(selectedTag))
   }
-  //
-  // filterRecipesByIngredient(selectedIngredient) {
-  //   return this.recipeData.filter(recipe => recipe.ingredients.includes(name[selectedIngredient]))
-  // }
+
+  filterRecipesByIngredient(selectedIngredient) {
+    return this.recipeData.filter(recipe =>
+      recipe.ingredients.find(ingredient =>
+        ingredient.name === selectedIngredient))
+  }
 
 }
 
