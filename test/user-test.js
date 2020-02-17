@@ -70,10 +70,26 @@ describe('User', () => {
     expect(user1.filterFavorites('antipasti')).to.deep.equal([recipeData[0]]);
   });
 
-  it.skip('Should be able to search favoriteRecipes by name or ingredient', function(){
+  it('Should be able to search favoriteRecipes ingredient', function(){
     user1.addToFavorites(recipeData[0]);
     user1.addToFavorites(recipeData[1]);
-    expect(user1.findFavorites('egg')).to.equal([recipeData[0]]);
+
+    expect(user1.findFavorites('egg')).to.deep.equal([recipeData[0]]);
+  });
+
+  it('Should be able to return multiple search of favoriteRecipes by ingredient', function(){
+    user1.addToFavorites(recipeData[0]);
+    user1.addToFavorites(recipeData[1]);
+    user1.addToFavorites(recipeData[5]);
+
+    expect(user1.findFavorites('egg')).to.deep.equal([recipeData[0], recipeData[5]]);
+  });
+
+  it('Should be able to search favoriteRecipes name', function(){
+    user1.addToFavorites(recipeData[0]);
+    user1.addToFavorites(recipeData[1]);
+
+    expect(user1.findFavorites('Chocolate')).to.deep.equal([recipeData[0]]);
   });
 
   it.skip('Should be able to check ingredients in User/s pantry for a given recipe', () => {
