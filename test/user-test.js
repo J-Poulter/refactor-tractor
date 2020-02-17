@@ -37,6 +37,30 @@ describe('User', () => {
     expect(user1).to.be.an.instanceof(User);
   });
 
+  it('should have a ID based on User instance', function() {
+    expect(user1.id).to.equal(1);
+  });
+
+  it('should have a pantry based on User instance', function() {
+    expect(user1.pantry).to.deep.equal([
+      {
+        "ingredient": 11477,
+        "amount": 1
+      },
+      {
+        "ingredient": 93820,
+        "amount": 1
+      },
+      {
+        "ingredient": 11297,
+        "amount": 3
+      }]);
+  });
+
+  it('should have a name based on User instance', function() {
+    expect(user1.name).to.equal("Saige O'Kon");
+  });
+
   it('Should have a property of favoriteRecipes with a default value',
     function() {
       expect(user1.favoriteRecipes).to.deep.equal([]);
