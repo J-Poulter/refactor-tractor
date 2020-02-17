@@ -3,57 +3,71 @@ import { expect } from 'chai';
 import User from '../src/user.js';
 import recipeData from '../src/data/recipes.js'
 
-let user1
-
 describe('User', () => {
+  let userData;
+  let user1;
+
   beforeEach(() => {
-    user1 = new User(1, 'Boba', [
-      {
-        'ingredient': 1077,
-        'amount': 1
-      },
-      {
-        'ingredient': 14412,
-        'amount': 1
-      },
-      {
-        'ingredient': 1009054,
-        'amount': 3
-      }]
-    );
+    userData = {
+      "id": 1,
+      "name": "Saige O'Kon",
+      "pantry": [
+        {
+          "ingredient": 11477,
+          "amount": 1
+        },
+        {
+          "ingredient": 93820,
+          "amount": 1
+        },
+        {
+          "ingredient": 11297,
+          "amount": 3
+        }]
+    };
+
+    user1 = new User(userData);
   });
 
-  it('Should have a property of favoriteRecipes with a default value', () => {
-    expect(user1.favoriteRecipes).to.eql([]);
+  it('should be a function', function() {
+    expect(User).to.be.a('function');
   });
 
-  it('Should be able to add recipes to favoriteRecipes', () =>{
-    user1.addToFavorites(recipeData[0])
-    expect(user1.favoriteRecipes.includes(recipeData[0])).to.eql(true);
+  it('should be an instance of User', function() {
+    expect(user1).to.be.an.instanceof(User);
   });
 
-  it('Should be able to remove recipes from favoriteRecipes', () =>{
+  it('Should have a property of favoriteRecipes with a default value', function() {
+    expect(user1.favoriteRecipes).to.deep.equal([]);
+  });
+
+  it('Should be able to add recipes to favoriteRecipes', function() {
+    user1.addToFavorites(recipeData[0]);
+    expect(user1.favoriteRecipes).to.deep.equal([recipeData[0]]);
+  });
+
+  it('Should be able to remove recipes from favoriteRecipes', function() {
     user1.removeFromFavorites(recipeData);
-    expect(user1.favoriteRecipes).to.eql([]);
+    expect(user1.favoriteRecipes).to.deep.equal([]);
   });
 
-  it('Should be able to filter through favoriteRecipes by tag', () => {
+  it.skip('Should be able to filter through favoriteRecipes by tag', function() {
     user1.addToFavorites(recipeData[0]);
     user1.addToFavorites(recipeData[1]);
-    expect(user1.filterFavorites('antipasti')).to.eql([recipeData[0]]);
+    expect(user1.filterFavorites('antipasti')).to.equal([recipeData[0]]);
   });
 
-  it('Should be able to search favoriteRecipes by name or ingredient', () => {
+  it.skip('Should be able to search favoriteRecipes by name or ingredient', function(){
     user1.addToFavorites(recipeData[0]);
     user1.addToFavorites(recipeData[1]);
-    expect(user1.findFavorites('egg')).to.eql([recipeData[0]]);
+    expect(user1.findFavorites('egg')).to.equal([recipeData[0]]);
   });
 
-  it('Should be able to check ingredients in User/s pantry for a given recipe', () => {
+  it.skip('Should be able to check ingredients in User/s pantry for a given recipe', () => {
     expect(user1.checkPantry(recipeIngredients)).to.eql('You have the ingredients!');
   });
 
-  it('Should inform User if they lack required ingredients for a given recipe', () => {
+  it.skip('Should inform User if they lack required ingredients for a given recipe', () => {
     expect(user1.checkPantry(recipeIngredients)).to.eql(missingIngredientsWithPrice);
   });
 });
