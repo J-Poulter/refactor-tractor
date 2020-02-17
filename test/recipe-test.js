@@ -24,9 +24,12 @@ describe('Recipe', () => {
   })
 
   it('Should be able to calculate the cost of its ingredients', () => {
-    // console.log(ingredientsData);
     expect(recipe.calculateCost()).to.equal(4166);
-  });
+  })
 
+  it.only('Should be able to filter recipes by tag', () => {
+    let filteredRecipes = recipeData.filter(recipe => recipe.tags.includes('side dish'));
+    expect(filteredRecipes.length).to.equal(22);
+  })
 
 });

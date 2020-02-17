@@ -1,11 +1,12 @@
 class Recipe {
-  constructor(recipe, ingredientsData) {
+  constructor(recipe, ingredientsData, recipeData) {
     this.name = recipe.name;
     this.id = recipe.id;
     this.ingredients = recipe.ingredients;
     this.instructions = recipe.instructions;
     this.tags = recipe.tags;
     this.ingredientsData = ingredientsData;
+    this.recipeData = recipeData;
   }
 
   calculateCost() {
@@ -19,6 +20,10 @@ class Recipe {
       })
     });
     return costCounter;
+  }
+
+  filterRecipesByTag(selectedTag) {
+    return this.recipeData.filter(recipe => recipe.tags.includes(selectedTag))
   }
 
 }
