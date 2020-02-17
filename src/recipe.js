@@ -32,7 +32,9 @@ class Recipe {
         ingredient.name === selectedIngredient))
   }
 
-  
+  getInstructions() {
+    return this.instructions;
+  }
 
 }
 

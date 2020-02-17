@@ -25,6 +25,10 @@ describe('Recipe', () => {
     expect(filteredRecipes.length).to.equal(3);
   })
 
+  it('Should be able to get its instructions', () => {
+    expect(recipe.getInstructions()).to.equal(recipeData[47].instructions);
+  })
+
   describe('Recipe Data', () => {
 
     it('Should hold its own ingredient data', () => {
