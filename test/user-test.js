@@ -66,7 +66,8 @@ describe('User', () => {
   it('Should be able to filter through favoriteRecipes by tag', function() {
     user1.addToFavorites(recipeData[0]);
     user1.addToFavorites(recipeData[1]);
-    expect(user1.filterFavorites('antipasti')).to.equal([recipeData[0]]);
+
+    expect(user1.filterFavorites('antipasti')).to.deep.equal([recipeData[0]]);
   });
 
   it.skip('Should be able to search favoriteRecipes by name or ingredient', function(){
