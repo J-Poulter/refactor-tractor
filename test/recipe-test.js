@@ -8,20 +8,8 @@ let recipe;
 
 describe('Recipe', () => {
   beforeEach(() => {
-
     recipe = new Recipe(recipeData[47], ingredientsData, recipeData);
   });
-
-  describe('Recipe Data', () => {
-
-    it('Should hold its own ingredient data', () => {
-      expect(recipe.ingredients).to.equal(recipeData[47].ingredients);
-    })
-
-    it('Should hold its own instruction data', () => {
-      expect(recipe.instructions).to.equal(recipeData[47].instructions);
-    })
-  })
 
   it('Should be able to calculate the cost of its ingredients', () => {
     expect(recipe.calculateCost()).to.equal(4166);
@@ -35,6 +23,17 @@ describe('Recipe', () => {
   it('Should be able to filter recipes by ingredient', () => {
     let filteredRecipes = recipe.filterRecipesByIngredient('sea salt');
     expect(filteredRecipes.length).to.equal(3);
+  })
+
+  describe('Recipe Data', () => {
+
+    it('Should hold its own ingredient data', () => {
+      expect(recipe.ingredients).to.equal(recipeData[47].ingredients);
+    })
+
+    it('Should hold its own instruction data', () => {
+      expect(recipe.instructions).to.equal(recipeData[47].instructions);
+    })
   })
 
 });

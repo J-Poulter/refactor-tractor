@@ -32,6 +32,8 @@ class Recipe {
         ingredient.name === selectedIngredient))
   }
 
+  
+
 }
 
 export default Recipe;
