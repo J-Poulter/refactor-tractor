@@ -17,17 +17,16 @@
 
 ### Files modified:
 #### src directory
-  - [ ] Activity.js
-  - [ ] Hydration.js
-  - [ ] Sleep.js
-  - [ ] User.js
-  - [ ] UserRepository.js
-  - [ ] script.js
+  - [ ] base.scss
+  - [ ] styles.scss
+  - [ ] cookbook.js
+  - [ ] pantry.js
+  - [ ] recipe.js
+  - [ ] user.js
+  - [ ] scripts.js
   - [ ] index.html
-  - [ ] main.css
 #### test directory
-  - [ ] Activity-test.js
-  - [ ] Hydration-test.js
-  - [ ] Sleep-test.js
-  - [ ] User-test.js
-  - [ ] UserRepository-test.js
+- [ ] cookbook-test.js
+- [ ] pantry-test.js
+- [ ] recipe-test.js
+- [ ] user-test.js
