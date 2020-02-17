@@ -9,7 +9,7 @@ let recipe;
 describe('Recipe', () => {
   beforeEach(() => {
 
-    recipe = new Recipe(recipeData[47], ingredientsData);
+    recipe = new Recipe(recipeData[47], ingredientsData, recipeData);
   });
 
   describe('Recipe Data', () => {
@@ -27,9 +27,14 @@ describe('Recipe', () => {
     expect(recipe.calculateCost()).to.equal(4166);
   })
 
-  it.only('Should be able to filter recipes by tag', () => {
-    let filteredRecipes = recipeData.filter(recipe => recipe.tags.includes('side dish'));
+  it('Should be able to filter recipes by tag', () => {
+    let filteredRecipes = recipe.filterRecipesByTag('side dish');
     expect(filteredRecipes.length).to.equal(22);
   })
+
+  // it.only('Should be able to filter recipes by tag', () => {
+  //   let filteredRecipes = recipe.filterRecipesByIngredient('sea salt');
+  //   expect(filteredRecipes.length).to.equal(3);
+  // })
 
 });
