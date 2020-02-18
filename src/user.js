@@ -4,7 +4,7 @@ class User {
     this.name = user.name;
     this.pantry = user.pantry;
     this.favoriteRecipes = [];
-
+    this.recipesToCook = [];
   }
 
   addToFavorites(recipe) {
@@ -16,6 +16,17 @@ class User {
   removeFromFavorites(recipe) {
     const i = this.favoriteRecipes.indexOf(recipe);
     this.favoriteRecipes.splice(i, 1)
+  }
+
+  addToRecipeToCook(recipe) {
+    if (!this.recipesToCook.includes(recipe)) {
+      this.recipesToCook.push(recipe)
+    }
+  }
+
+  removeFromRecipeToCook(recipe) {
+    const i = this.recipesToCook.indexOf(recipe);
+    this.recipesToCook.splice(i, 1)
   }
 
   filterFavorites(tag) {
