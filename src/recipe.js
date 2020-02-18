@@ -19,7 +19,8 @@ class Recipe {
         }
       })
     });
-    return costCounter;
+    let costInDollars = (costCounter/100).toFixed(2);
+    return Number(costInDollars);
   }
 
   filterRecipesByTag(selectedTag) {
