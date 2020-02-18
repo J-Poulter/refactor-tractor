@@ -38,6 +38,14 @@ describe('Recipe', () => {
       expect(recipe.name).to.equal(recipeData[47].name)
     })
 
+    it('Should have an ID', () => {
+      expect(recipe.id).to.equal(recipeData[47].id)
+    })
+
+    it('Should have tags', () => {
+      expect(recipe.tags).to.equal(recipeData[47].tags)
+    })
+
     it('Should hold its own ingredient data', () => {
       expect(recipe.ingredients).to.equal(recipeData[47].ingredients);
     })
