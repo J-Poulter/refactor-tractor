@@ -11,6 +11,10 @@ describe('Recipe', () => {
     recipe = new Recipe(recipeData[47], ingredientsData, recipeData);
   });
 
+  it('should be an instance of Recipe', function() {
+    expect(recipe).to.be.an.instanceof(Recipe);
+  });
+
   it('Should be able to calculate the cost of its ingredients', () => {
     expect(recipe.calculateCost()).to.equal(4166);
   })
@@ -30,6 +34,9 @@ describe('Recipe', () => {
   })
 
   describe('Recipe Data', () => {
+    it('Should have a name', () => {
+      expect(recipe.name).to.equal(recipeData[47].name)
+    })
 
     it('Should hold its own ingredient data', () => {
       expect(recipe.ingredients).to.equal(recipeData[47].ingredients);
