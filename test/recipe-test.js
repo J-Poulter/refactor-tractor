@@ -53,6 +53,15 @@ describe('Recipe', () => {
     it('Should hold its own instruction data', () => {
       expect(recipe.instructions).to.equal(recipeData[47].instructions);
     })
+
+    it('Should hold all recipe data', () => {
+      expect(recipe.recipeData).to.equal(recipeData);
+    })
+
+    it('Should hold all ingredients data', () => {
+      expect(recipe.ingredientsData).to.equal(ingredientsData);
+    })
+
   })
 
 });
