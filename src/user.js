@@ -46,13 +46,13 @@ class User {
     this.recipesToCook.splice(i, 1)
   }
 
-  filterRecipeToCook(tag) {
+  filterRecipesToCook(tag) {
     return this.recipesToCook.filter(recipe => {
       return recipe.tags.includes(tag);
     });
   }
 
-  findRecipeToCook(searchWord) {
+  findRecipesToCook(searchWord) {
     return this.recipesToCook.filter(recipe => {
       return recipe.name.includes(searchWord)
       || recipe.ingredients.find(ingredient => {

@@ -174,21 +174,21 @@ describe('User', function() {
       user1.addToRecipeToCook(recipeData[0]);
       user1.addToRecipeToCook(recipeData[1]);
 
-      expect(user1.filterRecipeToCook('antipasti')).to.deep.equal([recipeData[0]]);
+      expect(user1.filterRecipesToCook('antipasti')).to.deep.equal([recipeData[0]]);
     });
 
     it('Should be able to search recipeToCook ingredient', function(){
       user1.addToRecipeToCook(recipeData[0]);
       user1.addToRecipeToCook(recipeData[1]);
 
-      expect(user1.findRecipeToCook('egg')).to.deep.equal([recipeData[0]]);
+      expect(user1.findRecipesToCook('egg')).to.deep.equal([recipeData[0]]);
     });
 
     it('Should be able to search recipeToCook by name', function(){
       user1.addToRecipeToCook(recipeData[0]);
       user1.addToRecipeToCook(recipeData[1]);
 
-      expect(user1.findRecipeToCook('Chocolate')).to.deep.equal([recipeData[0]]);
+      expect(user1.findRecipesToCook('Chocolate')).to.deep.equal([recipeData[0]]);
     });
   })
 });
