@@ -1,4 +1,6 @@
 @import 'variables';
+@import 'mixins';
+
 
 html {
   background-color: $background-blue;
@@ -38,6 +40,7 @@ h1 {
   padding-top: 10px;
   text-align: center;
   width: 30%;
+  color: complement($background-blue)
 }
 
 .user-info {
@@ -57,9 +60,13 @@ h1 {
 .search-button {
   background-color: $background-white;
   border: $border-side-black;
-  width: 20%;
-  height: 58px;
+  width: 33px;
+  height: 33px;
   margin-top: 3px;
+}
+
+.search-image {
+  @include full-size();
 }
 
 .search-image,
@@ -94,9 +101,10 @@ h1 {
   width: 12%;
 }
 
-.add {
-  width: 100%;
+.add-image {
+  @include full-size();
 }
+
 
 .hidden {
   display: none;
@@ -172,8 +180,7 @@ h3 {
 
 main {
   background-color: $background-blue;
-  height: 100%;
-  width: 100%;
+  @include full-size();
 }
 
 .favorite-active {
