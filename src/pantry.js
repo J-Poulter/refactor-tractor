@@ -26,12 +26,12 @@ class Pantry {
       });
     });
 
-    let ingredientsNeeded = [];
-    ingredientDetails.forEach(ingredient => {
-      if (ingredient.qty > 0) {
-        ingredientsNeeded.push(ingredient)
-      };
-    });
+    let ingredientsNeeded = ingredientDetails.reduce((need, ingr) => {
+      if (ingr.qty > 0) {
+        need.push(ingr)
+      }
+      return need
+    }, []);
     return ingredientsNeeded;
   }
 
