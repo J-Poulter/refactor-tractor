@@ -1,6 +1,10 @@
+@import 'variables';
+@import 'mixins';
+
+
 html {
-  background-color: #37515C;
-  border: 2px solid #000;
+  background-color: $background-blue;
+  border: $border-black;
   height: 100vh;
 }
 
@@ -12,8 +16,8 @@ body {
 
 
 .main-header {
-  background-color: #EBF5EE;
-  border: 2px solid #000;
+  background-color: $background-white;
+  border: $border-black;
   display: flex;
   height: auto;
   justify-content: space-between;
@@ -21,21 +25,22 @@ body {
 }
 
 .navButton {
-  background-color: #EBF5EE;
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
+  background-color: $background-white;
+  border-left: $border-side-black;
+  border-right: $border-side-black;
   font-size: 130%;
   margin: 1%;
 }
 
 h1 {
-  border-right: 2px solid #000;
+  border-right: $border-black;
   font-size: 255%;
   margin-top: 0;
   margin-bottom: 0;
   padding-top: 10px;
   text-align: center;
   width: 30%;
+  color: complement($background-blue)
 }
 
 .user-info {
@@ -48,35 +53,32 @@ h1 {
 .search-bar {
   display: flex;
   height: 100%;
-  margin: 10px 0px 10px 0px;
+  margin: 10px 0px;
   width: 30%;
 }
 
 .search-button {
-  background-color: #EBF5EE;
-  border: 1px solid #000;
-  width: 20%;
-  height: 58px;
+  background-color: $background-white;
+  border: $border-side-black;
+  width: 33px;
+  height: 33px;
   margin-top: 3px;
 }
 
-.search-image:hover,
-.card-button:hover,
-.navButton:hover,
-.search-button:hover {
-  background-color: #cff2da;
+.search-image {
+  @include full-size();
 }
 
-
-.search-image:active,
-.card-button:active,
-.navButton:active,
-.search-button:active {
-  background-color: #C3C2C6;
+.search-image,
+.card-button,
+.navButton,
+.search-button {
+  &:hover {background-color: #cff2da};
+  &:active {background-color: #C3C2C6};
 }
 
 .search-input {
-  border: 1px solid #000;
+  border: $border-side-black;
   font-size: 100%;
   height: 7vh;
   margin: 3px 7px 0px 0px;
@@ -86,7 +88,7 @@ h1 {
 
 
 .card-button {
-  border: 1px solid #000;
+  border: $border-side-black;
   height: 27px;
   margin: 3px;
 }
@@ -94,14 +96,15 @@ h1 {
 
 
 .add-button {
-  background-color: #EBF5EE;
+  background-color: $background-white;
   display: flex;
   width: 12%;
 }
 
-.add {
-  width: 100%;
+.add-image {
+  @include full-size();
 }
+
 
 .hidden {
   display: none;
@@ -109,7 +112,7 @@ h1 {
 
 
 .favorite {
-  background-color: #EBF5EE;
+  background-color: $background-white;
   background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -136,8 +139,8 @@ img {
 
 
 .card-header {
-  background-color: #EBF5EE;
-  border-bottom: 1px solid #000;
+  background-color: $background-white;
+  border-bottom: $border-side-black;
   display: flex;
   justify-content: space-between;
 }
@@ -149,42 +152,35 @@ img {
 
 .all-recipe-info,
 ol {
-  color: #EBF5EE;
+  color: $background-white;
   font-size: 220%;
   width: 100%;
 }
 
 h3 {
-  color: #EBF5EE;
+  color: $background-white;
   font-size: 250%;
 }
 
 .recipe-name {
-
   display: block;
   font-size: 150%;
   text-align: center;
 }
 
-.card-picture:hover {
-  opacity: 0.7;
-}
-
-.card-picture:active {
-  border: 2px solid #000;
-}
 
 .card-picture {
-  border: 1px solid #000;
+  border: $border-side-black;
   height: 200px;
   margin: 10px 3% 8px 2.6%;
   width: 94%;
+  &:hover {opacity: 0.7}
+  &:active {border: $border-black;}
 }
 
 main {
-  background-color: #37515C;
-  height: 100%;
-  width: 100%;
+  background-color: $background-blue;
+  @include full-size();
 }
 
 .favorite-active {
