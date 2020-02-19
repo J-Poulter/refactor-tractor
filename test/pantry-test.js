@@ -17,8 +17,8 @@ describe('Pantry', function() {
     userData = {
       "id": 1,
       "name": "Saige O'Kon",
-      "pantry": [
-        {
+      "pantry":
+      [{
           "ingredient": 11477,
           "amount": 1
         },
@@ -29,13 +29,13 @@ describe('Pantry', function() {
         {
           "ingredient": 11297,
           "amount": 3
-        }]
-      }
+      }]
+    };
     userData2 = {
       "id": 2,
       "name": "Ab",
-      "pantry": [
-        {
+      "pantry":
+      [{
           "ingredient": 1041009,
           "amount": 2
         },
@@ -58,7 +58,7 @@ describe('Pantry', function() {
         {
           "ingredient": 11477,
           "amount": 1
-        }]
+      }]
     };
 
     user1 = new User(userData);
@@ -67,7 +67,7 @@ describe('Pantry', function() {
     pantry1 = new Pantry(user1.pantry, ingredientsData)
     pantry2 = new Pantry(user2.pantry, ingredientsData)
     recipe = new Recipe(recipeData[47], ingredientsData, recipeData);
-  })
+  });
 
   it('should be a function', function() {
     expect(Pantry).to.be.a('function');
