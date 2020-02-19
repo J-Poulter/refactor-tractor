@@ -31,36 +31,34 @@ describe('Pantry', function() {
           "amount": 3
         }]
       }
-      userData2 = {
-        "id": 2,
-        "name": "Ab",
-        "pantry": [
-          {
-            "ingredient": 1041009,
-            "amount": 2
-          },
-          {
-            "ingredient": 10018413,
-            "amount": 1
-          },
-          {
-            "ingredient": 2044,
-            "amount": 3
-          },
-          {
-            "ingredient": 10111529,
-            "amount": 0.5
-          },
-          {
-            "ingredient": 4053,
-            "amount": 1
-          },
-          {
-            "ingredient": 11477,
-            "amount": 1
-          }]
-
-
+    userData2 = {
+      "id": 2,
+      "name": "Ab",
+      "pantry": [
+        {
+          "ingredient": 1041009,
+          "amount": 2
+        },
+        {
+          "ingredient": 10018413,
+          "amount": 1
+        },
+        {
+          "ingredient": 2044,
+          "amount": 3
+        },
+        {
+          "ingredient": 10111529,
+          "amount": 0.5
+        },
+        {
+          "ingredient": 4053,
+          "amount": 1
+        },
+        {
+          "ingredient": 11477,
+          "amount": 1
+        }]
     };
 
     user1 = new User(userData);
