@@ -11,6 +11,7 @@ import User from './user';
 import Cookbook from './cookbook';
 
 let favButton = document.querySelector('.view-favorites');
+let recipeToCookButton = document.querySelector('.view-recipe-to-cook')
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
 let cookbook = new Cookbook(recipeData);
@@ -19,6 +20,7 @@ let user, pantry;
 window.onload = onStartup();
 
 homeButton.addEventListener('click', cardButtonConditionals);
+recipeToCookButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 
@@ -27,7 +29,7 @@ function onStartup() {
   let newUser = users.find(user => {
     return user.id === Number(userId);
   });
-  user = new User(userId, newUser.name, newUser.pantry)
+  user = new User(newUser)
   pantry = new Pantry(newUser.pantry)
   populateCards(cookbook.recipes);
   greetUser();
@@ -105,7 +107,7 @@ function displayDirections(event) {
       return recipe;
     }
   })
-  let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
+  let recipeObject = new Recipe(newRecipeInfo, ingredientData, recipeData);
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
   cardArea.classList.add('all');
