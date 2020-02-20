@@ -11,8 +11,9 @@ import User from './user';
 import Cookbook from './cookbook';
 
 let favButton = document.querySelector('.view-favorites');
-let recipeToCookButton = document.querySelector('.view-recipe-to-cook')
-let homeButton = document.querySelector('.home')
+let recipeToCookButton = document.querySelector('.view-recipe-to-cook');
+let homeButton = document.querySelector('.home');
+let searchButton = document.querySelector('#search-button');
 let cardArea = document.querySelector('.all-cards');
 let cookbook = new Cookbook(recipeData);
 let user, pantry;
@@ -23,6 +24,15 @@ homeButton.addEventListener('click', cardButtonConditionals);
 recipeToCookButton.addEventListener('click', viewRecipeToCook);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
+searchButton.addEventListener('click', searchRecipe);
+
+function searchRecipe() {
+  let searchInput = document.querySelector('#search-input');
+  let searchResults = cookbook.findRecipe(searchInput.value);
+
+  populateCards(searchResults);
+  searchInput.value = ''
+}
 
 function onStartup() {
   let userId = (Math.floor(Math.random() * 49) + 1)
