@@ -93,9 +93,7 @@ h1 {
   margin: 3px;
 }
 
-
-
-.add-button {
+.add-to-cook-button {
   background-color: $background-white;
   display: flex;
   width: 12%;
@@ -186,4 +184,13 @@ main {
 .favorite-active {
   background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
   background-repeat: no-repeat;
+}
+
+.to-cook-active {
+  background-color: $background-blue;
+  background-repeat: no-repeat;
+}
+
+.add-image {
+  @include full-size();
 }
