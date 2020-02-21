@@ -11,7 +11,7 @@ import User from './user';
 import Cookbook from './cookbook';
 
 let favButton = document.querySelector('.view-favorites');
-let recipeToCookButton = document.querySelector('.view-recipe-to-cook');
+let recipesToCookButton = document.querySelector('.view-recipe-to-cook');
 let homeButton = document.querySelector('.home');
 let searchButton = document.querySelector('#search-button');
 let cardArea = document.querySelector('.all-cards');
@@ -21,18 +21,18 @@ let user, pantry;
 window.onload = onStartup();
 
 homeButton.addEventListener('click', cardButtonConditionals);
-recipeToCookButton.addEventListener('click', viewRecipeToCook);
+recipesToCookButton.addEventListener('click', viewRecipesToCook);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
-searchButton.addEventListener('click', searchRecipe);
+searchButton.addEventListener('click', searchRecipes);
 
-function searchRecipe() {
+function searchRecipes() {
   let searchInput = document.querySelector('#search-input');
-  let searchResults = cookbook.findRecipe(searchInput.value);
+  let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
 
   populateCards(searchResults);
   searchInput.value = ''
-}
+} 
 
 // ONLOAD DISPLAY //
 function onStartup() {
@@ -61,7 +61,7 @@ function cardButtonConditionals(event) {
     displayDirections(event);
   } else if (event.target.classList.contains('home')) {
     favButton.innerHTML = 'View Favorites';
-    recipeToCookButton.innerHTML = 'View Recipe To Cook';
+    recipesToCookButton.innerHTML = 'View Recipe To Cook';
     populateCards(cookbook.recipes);
   } else if (event.target.classList.contains('recipe-to-cook')) {
     recipeToCookCard(event);
@@ -128,16 +128,16 @@ function getFavorites() {
 /////////////////////////////
 
 // RECIPE TO COOK FUNCTIONS //
-function viewRecipeToCook() {
+function viewRecipesToCook() {
   if (cardArea.classList.contains('all')) {
     cardArea.classList.remove('all')
   }
   if (!user.recipesToCook.length) {
-    recipeToCookButton.innerHTML = 'You have no Recipe to Cook!';
+    recipesToCookButton.innerHTML = 'You have no Recipe to Cook!';
     populateCards(cookbook.recipes);
     return
   } else {
-    recipeToCookButton.innerHTML = 'Refresh Recipe to Cook'
+    recipesToCookButton.innerHTML = 'Refresh Recipe to Cook'
     cardArea.innerHTML = '';
     user.recipesToCook.forEach(recipe => {
       cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
@@ -168,7 +168,7 @@ function recipeToCookCard(event) {
   })
   if (!event.target.classList.contains('to-cook-active')) {
     event.target.classList.add('to-cook-active');
-    recipeToCookButton.innerHTML = 'View Recipe to Cook';
+    recipesToCookButton.innerHTML = 'View Recipe to Cook';
     user.addToRecipeToCook(specificRecipe);
   } else if (event.target.classList.contains('to-cook-active')) {
     event.target.classList.remove('to-cook-active');
