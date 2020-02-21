@@ -1,7 +1,6 @@
 @import 'variables';
 @import 'mixins';
 
-
 html {
   background-color: $background-blue;
   border: $border-black;
@@ -13,7 +12,6 @@ body {
   font-family: 'Open Sans', sans-serif;
   margin: auto;
 }
-
 
 .main-header {
   background-color: $background-white;
@@ -86,16 +84,13 @@ h1 {
   width: 90%;
 }
 
-
 .card-button {
   border: $border-side-black;
   height: 27px;
   margin: 3px;
 }
 
-
-
-.add-button {
+.add-to-cook-button {
   background-color: $background-white;
   display: flex;
   width: 12%;
@@ -105,11 +100,9 @@ h1 {
   @include full-size();
 }
 
-
 .hidden {
   display: none;
 }
-
 
 .favorite {
   background-color: $background-white;
@@ -136,7 +129,6 @@ img {
   border: 3px solid #000;
   width: 100%;
 }
-
 
 .card-header {
   background-color: $background-white;
@@ -168,7 +160,6 @@ h3 {
   text-align: center;
 }
 
-
 .card-picture {
   border: $border-side-black;
   height: 200px;
@@ -186,4 +177,13 @@ main {
 .favorite-active {
   background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
   background-repeat: no-repeat;
+}
+
+.to-cook-active {
+  background-color: $background-blue;
+  background-repeat: no-repeat;
+}
+
+.add-image {
+  @include full-size();
 }
