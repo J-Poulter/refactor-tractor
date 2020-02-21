@@ -70,7 +70,7 @@ function cardButtonConditionals(event) {
 }
 
 function checkKeyPressed(event) {
-  if (event.keyCode == "13" && event.target.classList.contains('card-picture')) {
+  if (event.keyCode === 13 && event.target.classList.contains('card-picture')) {
     displayDirections(event);
   }
 }
