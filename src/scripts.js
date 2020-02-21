@@ -24,6 +24,7 @@ homeButton.addEventListener('click', cardButtonConditionals);
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
+cardArea.addEventListener('keyup', checkKeyPressed);
 searchButton.addEventListener('click', searchRecipes);
 
 function searchRecipes() {
@@ -32,7 +33,7 @@ function searchRecipes() {
 
   populateCards(searchResults);
   searchInput.value = ''
-} 
+}
 
 // ONLOAD DISPLAY //
 function onStartup() {
@@ -65,6 +66,12 @@ function cardButtonConditionals(event) {
     populateCards(cookbook.recipes);
   } else if (event.target.classList.contains('recipe-to-cook')) {
     recipeToCookCard(event);
+  }
+}
+
+function checkKeyPressed(event) {
+  if (event.keyCode === 13 && event.target.classList.contains('card-picture')) {
+    displayDirections(event);
   }
 }
 /////////////////////////////
@@ -153,8 +160,10 @@ function viewRecipesToCook() {
       <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite card-button'>
       </button></header>
       <span data-id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-      <img data-id='${recipe.id}' tabindex='0' class='card-picture'
+      <button data-id='${recipe.id}' tabindex='0' class='card-picture'>
+      <img data-id='${recipe.id}'
       src='${recipe.image}' alt='Food from recipe'>
+      </button>
       </div>`)
     })
   }
