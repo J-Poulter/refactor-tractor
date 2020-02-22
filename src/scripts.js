@@ -26,13 +26,74 @@ favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 searchButton.addEventListener('click', searchRecipes);
 
+/* JQuery Changes ---------------------------------------------
+
+$(document).ready(() => {
+
+EVENT LISTENERS**********
+
+  $('.home').click(() => {
+    cardButtonConditionals();
+  });
+  $('.view-recipe-to-cook').click(() => {
+    viewRecipesToCook();
+  });
+  $('.view-favorites').click(() => {
+    viewFavorites();
+  });
+  $('.all-cards').click(() => {
+    cardButtonConditionals();
+  });
+  $('#search-button').click(() => {
+    searchRecipes();
+  });
+
+  ***Inside searchRecipes()
+  $('#search-input').val('')
+
+  ***Inside greetUser()
+  $('.user-name').html(user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0])
+
+  ***Inside viewFavorites()
+  ???Is first if statement necessary???
+  $('.all-cards').removeClass("all")
+  if (it's empty)
+    $('.view-favorites').html("'You have no favorites!'")
+    populateCards(cookbook.recipes);
+    return
+  else ()
+    $('.view-favorites').html("'Refresh Favorites'");
+    $('.all-cards').html('')
+    user.favoriteRecipes.each
+
+  ***Inside viewRecipesToCook()
+  ???Is first if statement necessary???
+  $('.all-cards').removeClass("all")
+  if (it's empty)
+    $('.view-recipe-to-cook').html("'You have no Recipe to Cook!'")
+    populateCards(cookbook.recipes);
+    return
+  else ()
+    $('.view-recipe-to-cook').html("'Refresh Recipe to Cook'");
+    $('.all-cards').html('')
+    user.recipesToCook.each
+
+  ***Inside populateCards()
+  ???Is first if statement necessary???
+  $('.all-cards').html('').removeClass("all")
+  recipes.each
+  getFavorites();
+})
+
+JQuery Changes ---------------------------------------------*/
+
 function searchRecipes() {
   let searchInput = document.querySelector('#search-input');
   let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
 
   populateCards(searchResults);
   searchInput.value = ''
-} 
+}
 
 // ONLOAD DISPLAY //
 function onStartup() {
