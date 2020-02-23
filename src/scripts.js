@@ -88,25 +88,40 @@ function viewFavorites() {
   } else {
     favButton.innerHTML = 'Refresh Favorites'
     cardArea.innerHTML = '';
+    // user.favoriteRecipes.forEach(recipe => {
+    //   cardArea.insertAdjacentHTML('afterbegin',
+    //   `<div id='${recipe.id}' class='card'>
+    //     <header data-id='${recipe.id}' class='card-header'>
+    //       <label for='add-button' class='hidden'>Click to add recipe</label>
+    //       <button data-id='${recipe.id}' aria-label='add-button' class='to-cook${recipe.id} recipe-to-cook add-button card-button'>
+    //         <img data-id='${recipe.id}' class='add-image recipe-to-cook' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to recipes to cook'>
+    //       </button>
+    //       <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
+    //       <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite${recipe.id} favorite card-button'></button>
+    //     </header>
+    //       <span data-id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
+    //       <img data-id='${recipe.id}' tabindex='0' class='card-picture' src='${recipe.image}' alt='Food from recipe'>
+    //   </div>`)
+    //
+    /// user.favoriteRecipes parameter, favorite active
     user.favoriteRecipes.forEach(recipe => {
-      cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
-      class='card'>
-      <header data-id='${recipe.id}' class='card-header'>
-      <label for='add-button' class='hidden'>Click to add recipe</label>
-      <button data-id='${recipe.id}' aria-label='add-button' class='recipe-to-cook add-button card-button'>
-      <img data-id='${recipe.id}' class='add-image recipe-to-cook'
-      src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-      recipes to cook'></button>
-      <label for='favorite-button' class='hidden'>Click to favorite recipe
-      </label>
-      <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite favorite-active card-button'>
-      </button></header>
-      <span data-id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-      <img data-id='${recipe.id}' tabindex='0' class='card-picture'
-      src='${recipe.image}' alt='Food from recipe'>
-      </div>`)
-    })
+    cardArea.insertAdjacentHTML('afterbegin',
+    `<div id='${recipe.id}' class='card'>
+        <header data-id='${recipe.id}' class='card-header'>
+          <label for='add-button' class='hidden'>Click to add recipe</label>
+          <button data-id='${recipe.id}' aria-label='add-button' class='to-cook${recipe.id} add-button card-button'>
+            <img data-id='${recipe.id}' class='add-image recipe-to-cook' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to recipes to cook'>
+          </button>
+          <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
+          <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite${recipe.id} favorite card-button'></button>
+        </header>
+          <span data-id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
+          <img data-id='${recipe.id}' tabindex='0' class='card-picture'
+          src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
+    </div>`)
+  })
   }
+  checkFavoriteActive();
 }
 
 function favoriteCard(event) {
@@ -125,10 +140,18 @@ function favoriteCard(event) {
   }
 }
 
-function getFavorites() {
+function checkFavoriteActive() {
   if (user.favoriteRecipes.length) {
     user.favoriteRecipes.forEach(recipe => {
       document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
+    })
+  } else return
+}
+
+function checkRecipeToCookActive() {
+  if (user.recipesToCook.length) {
+    user.recipesToCook.forEach(recipe => {
+      document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active')
     })
   } else return
 }
@@ -146,27 +169,41 @@ function viewRecipesToCook() {
   } else {
     recipesToCookButton.innerHTML = 'Refresh Recipe to Cook'
     cardArea.innerHTML = '';
+    // user.recipesToCook.forEach(recipe => {
+    //   cardArea.insertAdjacentHTML('afterbegin',
+    //   `<div id='${recipe.id}' class='card'>
+    //     <header data-id='${recipe.id}' class='card-header'>
+    //       <label for='add-button' class='hidden'>Click to add recipe</label>
+    //       <button data-id='${recipe.id}' aria-label='add-button' class='to-cook${recipe.id} recipe-to-cook add-button card-button'>
+    //         <img data-id='${recipe.id}' class='add-image recipe-to-cook to-cook-active' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to recipes to cook'>
+    //       </button>
+    //       <label for='recipe-to-cook-button' class='hidden'>Click to favorite recipe</label>
+    //       <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite${recipe.id} favorite card-button'></button>
+    //     </header>
+    //       <span data-id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
+    //         <img data-id='${recipe.id}' tabindex='0' class='card-picture' src='${recipe.image}' alt='Food from recipe'>
+    //   </div>`)
+    // })
+
+    /// user.recipeToCook parameter
     user.recipesToCook.forEach(recipe => {
-      cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
-      class='card'>
-      <header data-id='${recipe.id}' class='card-header'>
-      <label for='add-button' class='hidden'>Click to add recipe</label>
-      <button data-id='${recipe.id}' aria-label='add-button' class='recipe-to-cook add-button card-button'>
-      <img data-id='${recipe.id}' class='add-image recipe-to-cook to-cook-active'
-      src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-      recipes to cook'></button>
-      <label for='favorite-button' class='hidden'>Click to favorite recipe
-      </label>
-      <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite card-button'>
-      </button></header>
-      <span data-id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-      <button data-id='${recipe.id}' tabindex='0' class='card-picture'>
-      <img data-id='${recipe.id}'
-      src='${recipe.image}' alt='Food from recipe'>
-      </button>
-      </div>`)
+    cardArea.insertAdjacentHTML('afterbegin',
+    `<div id='${recipe.id}' class='card'>
+        <header data-id='${recipe.id}' class='card-header'>
+          <label for='add-button' class='hidden'>Click to add recipe</label>
+          <button data-id='${recipe.id}' aria-label='add-button' class='to-cook${recipe.id} add-button card-button'>
+            <img data-id='${recipe.id}' class='add-image recipe-to-cook' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to recipes to cook'>
+          </button>
+          <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
+          <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite${recipe.id} favorite card-button'></button>
+        </header>
+          <span data-id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
+          <img data-id='${recipe.id}' tabindex='0' class='card-picture'
+          src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
+    </div>`)
     })
   }
+  checkFavoriteActive();
 }
 
 function recipeToCookCard(event) {
@@ -193,25 +230,22 @@ function populateCards(recipes) {
     cardArea.classList.remove('all')
   }
   recipes.forEach(recipe => {
-    cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
-    class='card'>
+    cardArea.insertAdjacentHTML('afterbegin',
+    `<div id='${recipe.id}' class='card'>
         <header data-id='${recipe.id}' class='card-header'>
           <label for='add-button' class='hidden'>Click to add recipe</label>
-          <button data-id='${recipe.id}' aria-label='add-button' class='recipe-to-cook add-button card-button'>
-            <img data-id='${recipe.id}' class='add-image recipe-to-cook'
-            src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-            recipes to cook'>
+          <button data-id='${recipe.id}' aria-label='add-button' class='to-cook${recipe.id} add-button card-button'>
+            <img data-id='${recipe.id}' class='add-image recipe-to-cook' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to recipes to cook'>
           </button>
-          <label for='favorite-button' class='hidden'>Click to favorite recipe
-          </label>
-          <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} card-button'></button>
+          <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
+          <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite${recipe.id} favorite card-button'></button>
         </header>
           <span data-id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
           <img data-id='${recipe.id}' tabindex='0' class='card-picture'
           src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
     </div>`)
   })
-  getFavorites();
+  checkFavoriteActive();
 };
 
 function displayDirections(event) {
