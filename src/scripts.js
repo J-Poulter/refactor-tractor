@@ -78,9 +78,7 @@ function checkKeyPressed(event) {
 
 // FAVORITE FUNCTIONS //
 function viewFavorites() {
-  if (cardArea.classList.contains('all')) {
-    cardArea.classList.remove('all')
-  }
+  checkCardArea();
   if (!user.favoriteRecipes.length) {
     favButton.innerHTML = 'You have no favorites!';
     populateCards(cookbook.recipes);
@@ -128,9 +126,7 @@ function checkRecipeToCookActive() {
 
 // RECIPE TO COOK FUNCTIONS //
 function viewRecipesToCook() {
-  if (cardArea.classList.contains('all')) {
-    cardArea.classList.remove('all')
-  }
+  checkCardArea();
   if (!user.recipesToCook.length) {
     recipesToCookButton.innerHTML = 'You have no Recipe to Cook!';
     populateCards(cookbook.recipes);
@@ -161,12 +157,16 @@ function recipeToCookCard(event) {
 /////////////////////////////
 
 // RECIPE DISPLAY //
-function populateCards(recipes) {
-  cardArea.innerHTML = '';
+function checkCardArea() {
   if (cardArea.classList.contains('all')) {
     cardArea.classList.remove('all')
   }
-  createRecipeCards(recipes)
+}
+
+function populateCards(recipes) {
+  cardArea.innerHTML = '';
+  checkCardArea();
+  createRecipeCards(recipes);
   checkFavoriteActive();
 };
 
