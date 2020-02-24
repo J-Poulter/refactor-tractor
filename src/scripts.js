@@ -9,17 +9,17 @@ import Cookbook from './cookbook';
 let users = fetch("https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData")
   .then(response => response.json())
   .then(data => data.wcUsersData)
-  .catch(error => error.message)
+  .catch(error => console.log(error.message))
 
 let ingredientData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData')
   .then(response => response.json())
   .then(data => data.ingredientsData)
-  .catch(error => console.log('ingredientsData error'));
+  .catch(error => console.log(error.message));
 
 let recipeData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData')
   .then(response => response.json())
   .then(data => data.recipeData)
-  .catch(error => console.log('recipesData error'));
+  .catch(error => console.log(error.message));
 //
 Promise.all([recipeData, ingredientData, users])
   .then(data => {
@@ -45,7 +45,6 @@ cardArea.addEventListener('keyup', checkKeyPressed);
 searchButton.addEventListener('click', searchRecipes);
 
 function searchRecipes() {
-  console.log(cookbook)
   let searchInput = document.querySelector('#search-input');
   let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
 
