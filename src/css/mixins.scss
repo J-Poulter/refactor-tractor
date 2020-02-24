@@ -2,3 +2,84 @@
   height: 100%;
   width: 100%;
 }
+@mixin xs {
+   @media (min-width: #{$screen-xs}) {
+       @content;
+       h1 {
+         color: yellow;
+       }
+       .all-cards {
+         display: grid;
+         grid-gap: 30px;
+         grid-template-columns: repeat(1, 1fr);
+         padding: 20px 0 20px 20px;
+         width: 95.5vw;
+       }
+       //need to move search bar to under card-header
+   }
+}
+@mixin sm {
+   @media (min-width: #{$screen-sm}) {
+       @content;
+       h1 {
+         color: blue;
+       }
+       .all-cards {
+         display: grid;
+         grid-gap: 30px;
+         grid-template-columns: repeat(2, 1fr);
+         padding: 20px 0 20px 20px;
+         width: 95.5vw;
+       }
+       //need to move search bar to under card-header
+   }
+}
+
+@mixin md {
+   @media (min-width: #{$screen-md}) {
+       @content;
+       h1 {
+         color: red;
+       }
+       .all-cards {
+         display: grid;
+         grid-gap: 30px;
+         grid-template-columns: repeat(2, 1fr);
+         padding: 20px 0 20px 20px;
+         width: 95.5vw;
+       }
+       //need to move search bar to under card-header
+   }
+}
+
+@mixin lg {
+   @media (min-width: #{$screen-lg}) {
+       @content;
+       h1 {
+         color: green;
+       }
+       .all-cards {
+         display: grid;
+         grid-gap: 30px;
+         grid-template-columns: repeat(3, 1fr);
+         padding: 20px 0 20px 20px;
+         width: 95.5vw;
+       }
+   }
+}
+
+@mixin xl {
+   @media (min-width: #{$screen-xl}) {
+     @content;
+     h1 {
+       color: pink;
+     }
+    .all-cards {
+      display: grid;
+      grid-gap: 30px;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 30px 0 30px 30px;
+      width: 95.5vw;
+    }
+  }
+}

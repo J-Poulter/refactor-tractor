@@ -5,6 +5,11 @@ html {
   background-color: $background-blue;
   border: $border-black;
   height: 100vh;
+  @include xs;
+  @include sm;
+  @include md;
+  @include lg;
+  @include xl;
 }
 
 body {
@@ -112,14 +117,6 @@ h1 {
   width: 13%;
 }
 
-.all-cards {
-  display: grid;
-  grid-gap: 30px;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 30px 0 30px 30px;
-  width: 95.5vw;
-}
-
 img {
   cursor: pointer;
 }
@@ -127,7 +124,8 @@ img {
 .card {
   background-color: #D7F2FE;
   border: 3px solid #000;
-  width: 100%;
+  height: 331 px;
+  width: 270px;
 }
 
 .card-header {
