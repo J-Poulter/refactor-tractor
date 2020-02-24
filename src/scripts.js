@@ -38,14 +38,13 @@ let searchButton = document.querySelector('#search-button');
 let cardArea = document.querySelector('.all-cards');
 let user, pantry, cookbook;
 
-homeButton.addEventListener('click', cardButtonConditionals);
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
 favButton.addEventListener('click', viewFavorites);
-cardArea.addEventListener('click', cardButtonConditionals);
 cardArea.addEventListener('keyup', checkKeyPressedForAdd);
 cardArea.addEventListener('keyup', checkKeyPressed);
 searchButton.addEventListener('click', searchRecipes);
 searchInput.addEventListener('keyup', checkKeyPressedForSearch);
+document.addEventListener('click', cardButtonConditionals)
 
 function searchRecipes() {
   let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
@@ -122,6 +121,7 @@ function viewFavorites() {
     createRecipeCards(user.favoriteRecipes);
   }
   checkFavoriteActive();
+  // checkRecipeToCookActive();
 }
 
 function favoriteCard(event) {
@@ -141,19 +141,23 @@ function favoriteCard(event) {
 }
 
 function checkFavoriteActive() {
-  if (user.favoriteRecipes.length) {
+  if (!user.favoriteRecipes.length) {
+    return
+  } else {
     user.favoriteRecipes.forEach(recipe => {
       document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
     })
-  } else return
+  }
 }
 
 // function checkRecipeToCookActive() {
-//   if (user.recipesToCook.length) {
+//   if (!user.recipesToCook.length) {
+//     return
+//   } else {
 //     user.recipesToCook.forEach(recipe => {
-//       document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active')
+//       document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active');
 //     })
-//   } else return
+//   }
 // }
 /////////////////////////////
 
@@ -161,15 +165,16 @@ function checkFavoriteActive() {
 function viewRecipesToCook() {
   cardArea.classList.remove('all')
   if (!user.recipesToCook.length) {
-    recipesToCookButton.innerHTML = 'You have no Recipe to Cook!';
+    recipesToCookButton.innerHTML = 'You have no Recipes to Cook!';
     populateCards(cookbook.recipes);
     return
   } else {
-    recipesToCookButton.innerHTML = 'Refresh Recipe to Cook'
+    recipesToCookButton.innerHTML = 'Refresh Recipes to Cook'
     cardArea.innerHTML = '';
-    createRecipeCards(user.recipesToCook)
+    createRecipeCards(user.recipesToCook);
   }
   checkFavoriteActive();
+  // checkRecipeToCookActive();
 }
 
 function recipeToCookCard(event) {
@@ -195,6 +200,7 @@ function populateCards(recipes) {
   cardArea.classList.remove('all')
   createRecipeCards(recipes);
   checkFavoriteActive();
+  // checkRecipeToCookActive();
 };
 
 function createRecipeCards(selectedRecipeData) {
@@ -232,9 +238,9 @@ function displayDirections(event) {
   <p class="ingredients-confirmation">You do not have all the ingredients needed to cook this recipe! Here's what you're missing:</p>
   ${missingIngredients.join('')}
   <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
-  <button>Close Recipe</button>
-  <button>Buy Missing Ingredients</button>
-  <button>Cook Recipe</button>
+  <button id="close-recipe" class="home">Close Recipe</button>
+  <button id="buy-ingredients">Buy Missing Ingredients</button>
+  <button id="cook-recipe">Cook Recipe</button>
   </span>
   <p class='all-recipe-info'>
   <strong>It will cost: </strong><span class='cost recipe-info'>
