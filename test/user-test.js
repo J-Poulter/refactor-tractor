@@ -61,14 +61,6 @@ describe('User', function() {
     expect(user1.name).to.equal("Saige O'Kon");
   });
 
-  it.skip('Should be able to check ingredients in User/s pantry for a given recipe', () => {
-    expect(user1.checkPantry(recipeIngredients)).to.eql('You have the ingredients!');
-  });
-
-  it.skip('Should inform User if they lack required ingredients for a given recipe', () => {
-    expect(user1.checkPantry(recipeIngredients)).to.eql(missingIngredientsWithPrice);
-  });
-
   describe("User - favoriteRecipes", function () {
 
     it('Should have a property of favoriteRecipes with a default value',
