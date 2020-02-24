@@ -31,6 +31,7 @@ Promise.all([recipeData, ingredientData, users])
   .catch(error => console.log(error.message))
 
 let favButton = document.querySelector('.view-favorites');
+let searchInput = document.querySelector('#search-input');
 let recipesToCookButton = document.querySelector('.view-recipe-to-cook');
 let homeButton = document.querySelector('.home');
 let searchButton = document.querySelector('#search-button');
@@ -44,9 +45,9 @@ cardArea.addEventListener('click', cardButtonConditionals);
 cardArea.addEventListener('keyup', checkKeyPressedForAdd);
 cardArea.addEventListener('keyup', checkKeyPressed);
 searchButton.addEventListener('click', searchRecipes);
+searchInput.addEventListener('keyup', checkKeyPressedForSearch);
 
 function searchRecipes() {
-  let searchInput = document.querySelector('#search-input');
   let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
 
   populateCards(searchResults);
@@ -54,14 +55,14 @@ function searchRecipes() {
 }
 
 // ONLOAD DISPLAY //
-function onStartup(usersData, ingredientData, recipesData) {
+function onStartup(userData, ingredientData, recipeData) {
   let userId = (Math.floor(Math.random() * 49) + 1)
-  let newUser = usersData.find(user => {
+  let newUser = userData.find(user => {
     return user.id === Number(userId);
   });
   user = new User(newUser)
   pantry = new Pantry(newUser.pantry, ingredientData)
-  cookbook = new Cookbook(recipesData);
+  cookbook = new Cookbook(recipeData, ingredientData);
   populateCards(cookbook.recipes);
   greetUser();
 }
@@ -99,6 +100,13 @@ function checkKeyPressedForAdd(event) {
     recipeToCookCard(event)
   }
 }
+
+function checkKeyPressedForSearch(event) {
+  if (event.keyCode === 13) {
+    searchRecipes()
+  }
+}
+
 /////////////////////////////
 
 // FAVORITE FUNCTIONS //
