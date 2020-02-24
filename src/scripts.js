@@ -24,6 +24,7 @@ homeButton.addEventListener('click', cardButtonConditionals);
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
+cardArea.addEventListener('keyup', checkKeyPressedForAdd);
 cardArea.addEventListener('keyup', checkKeyPressed);
 searchButton.addEventListener('click', searchRecipes);
 
@@ -72,6 +73,12 @@ function cardButtonConditionals(event) {
 function checkKeyPressed(event) {
   if (event.keyCode === 13 && event.target.classList.contains('card-picture')) {
     displayDirections(event);
+  }
+}
+
+function checkKeyPressedForAdd(event) {
+  if (event.keyCode === 13 && event.target.classList.contains('add-button')) {
+    recipeToCookCard(event)
   }
 }
 /////////////////////////////
@@ -147,7 +154,7 @@ function recipeToCookCard(event) {
   })
   if (!event.target.classList.contains('to-cook-active')) {
     event.target.classList.add('to-cook-active');
-    recipesToCookButton.innerHTML = 'View Recipe to Cook';
+    recipesToCookButton.innerHTML = 'View Recipes to Cook';
     user.addToRecipeToCook(specificRecipe);
   } else if (event.target.classList.contains('to-cook-active')) {
     event.target.classList.remove('to-cook-active');
