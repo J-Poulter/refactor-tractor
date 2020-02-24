@@ -238,9 +238,10 @@ function displayDirections(event) {
   let ingredientsSpan = document.querySelector('.ingredients');
   let instructionsSpan = document.querySelector('.instructions');
   recipeObject.ingredients.forEach(ingredient => {
+    let ingredientName = recipeObject.ingredientsData.find(el => el.id === ingredient.id).name
     ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
     ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
-    ${ingredient.name}</li></ul>
+    ${ingredientName}</li></ul>
     `)
   })
   recipeObject.instructions.forEach(instruction => {
