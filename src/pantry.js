@@ -8,7 +8,7 @@ class Pantry {
 
     let ingredientDetails = chosenRecipe.ingredients.map(ingredient => {
       return {
-        name: ingredient.name,
+        name: (this.ingredientsData.find(el => el.id === ingredient.id)).name,
         id: ingredient.id,
         qty: ingredient.quantity.amount,
         unit: ingredient.quantity.unit,
@@ -44,7 +44,7 @@ class Pantry {
   determineAdditionalNeededIngredients(chosenRecipe) {
     let ingredientsNeeded = this.compareRecipeToPantryIngredients(chosenRecipe);
     let neededQuantity = ingredientsNeeded.map(ingredient => {
-      return `${ingredient.name} ${ingredient.qty} ${ingredient.unit}`
+      return `<li>${ingredient.name} ${ingredient.qty} ${ingredient.unit}</li>`
     })
     return neededQuantity
   }

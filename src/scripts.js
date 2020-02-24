@@ -215,12 +215,14 @@ function displayDirections(event) {
     }
   })
   let recipeObject = new Recipe(newRecipeInfo, ingredientData, recipeData);
-  let cost = recipeObject.calculateCost()
-  let costInDollars = (cost / 100).toFixed(2)
+  let cost = recipeObject.calculateCost();
+  let costInDollars = (cost / 100).toFixed(2);
+  let missingIngredients = pantry.determineAdditionalNeededIngredients(recipeObject); //[]
   cardArea.classList.add('all');
   cardArea.innerHTML =
   `<span><h3>${recipeObject.name}</h3>
   <p class="ingredients-confirmation">You do not have all the ingredients needed to cook this recipe! Here's what you're missing:</p>
+  ${missingIngredients.join('')}
   <p class="ingredients-cost"> Cost of Missing Ingredients:</p>
   <button>Close Recipe</button>
   <button>Buy Missing Ingredients</button>
