@@ -1,9 +1,33 @@
 import './css/base.scss';
 import './css/styles.scss';
 
-import recipeData from './data/recipes';
-import ingredientData from './data/ingredients';
-import users from './data/users';
+let users = fetch("https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData")
+  .then(response => response.json())
+  .then(data => data.wcUsersData)
+  .catch(error => error.message)
+
+let ingredientData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData')
+  .then(response => response.json())
+  .then(data => data.ingredientsData)
+  .catch(error => console.log('ingredientsData error'));
+
+let recipeData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData')
+  .then(response => response.json())
+  .then(data => data.recipeData)
+  .catch(error => console.log('recipesData error'));
+//
+Promise.all([recipeData, ingredientData, users])
+  .then(data => {
+    recipeData = data[0];
+    ingredientData = data[1];
+    users = data[2];
+    onStartup(users, ingredientData, recipeData)
+  })
+  .catch(error => console.log(error.message))
+
+// import recipeData from './data/recipes';
+// import ingredientData from './data/ingredients';
+// import users from './data/users';
 
 import Pantry from './pantry';
 import Recipe from './recipe';
@@ -15,10 +39,9 @@ let recipesToCookButton = document.querySelector('.view-recipe-to-cook');
 let homeButton = document.querySelector('.home');
 let searchButton = document.querySelector('#search-button');
 let cardArea = document.querySelector('.all-cards');
-let cookbook = new Cookbook(recipeData);
-let user, pantry;
+let user, pantry, cookbook;
 
-window.onload = onStartup();
+// window.onload = onStartup();
 
 homeButton.addEventListener('click', cardButtonConditionals);
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
@@ -28,6 +51,7 @@ cardArea.addEventListener('keyup', checkKeyPressed);
 searchButton.addEventListener('click', searchRecipes);
 
 function searchRecipes() {
+  console.log(cookbook)
   let searchInput = document.querySelector('#search-input');
   let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
 
@@ -36,13 +60,14 @@ function searchRecipes() {
 }
 
 // ONLOAD DISPLAY //
-function onStartup() {
+function onStartup(usersData, ingredient, recipes) {
   let userId = (Math.floor(Math.random() * 49) + 1)
-  let newUser = users.find(user => {
+  let newUser = usersData.find(user => {
     return user.id === Number(userId);
   });
   user = new User(newUser)
-  pantry = new Pantry(newUser.pantry)
+  pantry = new Pantry(newUser.pantry, ingredient)
+  cookbook = new Cookbook(recipes);
   populateCards(cookbook.recipes);
   greetUser();
 }
@@ -78,7 +103,7 @@ function checkKeyPressed(event) {
 
 // FAVORITE FUNCTIONS //
 function viewFavorites() {
-  checkCardArea();
+  cardArea.classList.remove('all')
   if (!user.favoriteRecipes.length) {
     favButton.innerHTML = 'You have no favorites!';
     populateCards(cookbook.recipes);
@@ -115,18 +140,18 @@ function checkFavoriteActive() {
   } else return
 }
 
-function checkRecipeToCookActive() {
-  if (user.recipesToCook.length) {
-    user.recipesToCook.forEach(recipe => {
-      document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active')
-    })
-  } else return
-}
+// function checkRecipeToCookActive() {
+//   if (user.recipesToCook.length) {
+//     user.recipesToCook.forEach(recipe => {
+//       document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active')
+//     })
+//   } else return
+// }
 /////////////////////////////
 
 // RECIPE TO COOK FUNCTIONS //
 function viewRecipesToCook() {
-  checkCardArea();
+  cardArea.classList.remove('all')
   if (!user.recipesToCook.length) {
     recipesToCookButton.innerHTML = 'You have no Recipe to Cook!';
     populateCards(cookbook.recipes);
@@ -157,15 +182,9 @@ function recipeToCookCard(event) {
 /////////////////////////////
 
 // RECIPE DISPLAY //
-function checkCardArea() {
-  if (cardArea.classList.contains('all')) {
-    cardArea.classList.remove('all')
-  }
-}
-
 function populateCards(recipes) {
   cardArea.innerHTML = '';
-  checkCardArea();
+  cardArea.classList.remove('all')
   createRecipeCards(recipes);
   checkFavoriteActive();
 };
