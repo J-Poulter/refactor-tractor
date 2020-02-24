@@ -44,7 +44,7 @@ class Pantry {
   determineAdditionalNeededIngredients(chosenRecipe) {
     let ingredientsNeeded = this.compareRecipeToPantryIngredients(chosenRecipe);
     let neededQuantity = ingredientsNeeded.map(ingredient => {
-      return `<li>${ingredient.name} ${ingredient.qty} ${ingredient.unit}</li>`
+      return `<li>${ingredient.qty.toFixed(2)} ${ingredient.unit} - ${ingredient.name}</li>`
     })
     return neededQuantity
   }
