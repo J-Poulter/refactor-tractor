@@ -51,15 +51,11 @@ class Pantry {
 
   calculateCostOfAdditionalIngredients(chosenRecipe) {
     let ingredientsNeeded = this.compareRecipeToPantryIngredients(chosenRecipe);
-    let additionalIngredientCost = ingredientsNeeded.map(ingredient => {
-      return ingredient.name + ' $' + (ingredient.qty * ingredient.cost)/100
-    })
     let totalCost = ingredientsNeeded.reduce((cost, cur) => {
       cost += (cur.qty * cur.cost)/100
       return cost
     }, 0).toFixed(2)
-    additionalIngredientCost.push('total $' + totalCost)
-    return additionalIngredientCost
+    return totalCost;
   }
 
   updatePantryContent() {
