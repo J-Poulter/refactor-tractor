@@ -1,6 +1,11 @@
 import './css/base.scss';
 import './css/styles.scss';
 
+import Pantry from './pantry';
+import Recipe from './recipe';
+import User from './user';
+import Cookbook from './cookbook';
+
 let users = fetch("https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData")
   .then(response => response.json())
   .then(data => data.wcUsersData)
@@ -25,23 +30,12 @@ Promise.all([recipeData, ingredientData, users])
   })
   .catch(error => console.log(error.message))
 
-// import recipeData from './data/recipes';
-// import ingredientData from './data/ingredients';
-// import users from './data/users';
-
-import Pantry from './pantry';
-import Recipe from './recipe';
-import User from './user';
-import Cookbook from './cookbook';
-
 let favButton = document.querySelector('.view-favorites');
 let recipesToCookButton = document.querySelector('.view-recipe-to-cook');
 let homeButton = document.querySelector('.home');
 let searchButton = document.querySelector('#search-button');
 let cardArea = document.querySelector('.all-cards');
 let user, pantry, cookbook;
-
-// window.onload = onStartup();
 
 homeButton.addEventListener('click', cardButtonConditionals);
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
@@ -60,14 +54,14 @@ function searchRecipes() {
 }
 
 // ONLOAD DISPLAY //
-function onStartup(usersData, ingredient, recipes) {
+function onStartup(usersData, ingredientData, recipesData) {
   let userId = (Math.floor(Math.random() * 49) + 1)
   let newUser = usersData.find(user => {
     return user.id === Number(userId);
   });
   user = new User(newUser)
-  pantry = new Pantry(newUser.pantry, ingredient)
-  cookbook = new Cookbook(recipes);
+  pantry = new Pantry(newUser.pantry, ingredientData)
+  cookbook = new Cookbook(recipesData);
   populateCards(cookbook.recipes);
   greetUser();
 }
