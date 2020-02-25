@@ -145,7 +145,7 @@ function checkFavoriteActive() {
     return
   } else {
     user.favoriteRecipes.forEach(recipe => {
-      document.querySelector(`.favorite${recipe.id}`).classList.add('faøvorite-active')
+      document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
     })
   }
 }
