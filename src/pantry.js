@@ -25,13 +25,7 @@ class Pantry {
         };
       });
     });
-
-    let ingredientsNeeded = ingredientDetails.reduce((need, ingr) => {
-      if (ingr.qty > 0) {
-        need.push(ingr)
-      }
-      return need
-    }, []);
+    let ingredientsNeeded = ingredientDetails.filter(ingr => ingr.qty > 0);
     return ingredientsNeeded;
   }
 

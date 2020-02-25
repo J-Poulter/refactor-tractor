@@ -86,11 +86,11 @@ describe('Pantry', function() {
   });
 
   it('should be able to return what additional ingredients are needed and the additional quantity needed', function() {
-    expect(pantry1.determineAdditionalNeededIngredients(recipeData[47])).to.deep.equal(['cheese 2 tablespoons', 'flatbread 1 ', 'fresh basil 3 leaves', 'grape tomatoes 0.5 cup', 'olive oil 1 teaspoon'])
+    expect(pantry1.determineAdditionalNeededIngredients(recipeData[47])).to.deep.equal(["<li>2.00 tablespoons - cheese</li>", "<li>1.00  - flatbread</li>", "<li>3.00 leaves - fresh basil</li>", "<li>0.50 cup - grape tomato</li>", "<li>1.00 teaspoon - pure olive oil</li>"])
   });
 
   it('should be able to return the cost of the additional ingredients, individually and the total', function() {
-    expect(pantry1.calculateCostOfAdditionalIngredients(recipeData[47])).to.deep.equal(['cheese $17', 'flatbread $3.26', 'fresh basil $6.09', 'grape tomatoes $0.84', 'olive oil $7.05', 'total $34.24'])
+    expect(pantry1.calculateCostOfAdditionalIngredients(recipeData[47])).to.deep.equal('34.24')
   });
   //
   // it.skip('should be able to update the Pantrys content', function() {
