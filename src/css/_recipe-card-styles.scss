@@ -65,13 +65,28 @@ ol {
 }
 
 .to-cook-active {
-  background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
+  width: 13%;
+  background-color: #00a1d6;
   background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  background-size: 25px auto;
 }
 
 .add-button {
   width: 13%;
-  background-color: #83c379;
+  background-image: url(https://i.ya-webdesign.com/images/black-plus-sign-png.png);
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 100%;
+  background-size: 25px auto;
+}
+
+.ingredients-confirmation,
+.ingredients-cost {
+  color: $font-white;
+}
+
+li {
+  color: $font-white;
 }

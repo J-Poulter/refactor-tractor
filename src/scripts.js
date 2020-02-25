@@ -235,7 +235,7 @@ function displayDirections(event) {
   cardArea.classList.add('all');
   cardArea.innerHTML =
   `<span><h3>${recipeObject.name}</h3>
-  <p class="ingredients-confirmation">You do not have all the ingredients needed to cook this recipe! Here's what you're missing:</p>
+  <p class="ingredients-confirmation">Ingredients Needed:</p>
   ${missingIngredients.join('')}
   <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
   <button class="close-recipe home">Close Recipe</button>
