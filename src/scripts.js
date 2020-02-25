@@ -19,7 +19,7 @@ let recipeData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/r
   .then(response => response.json())
   .then(data => data.recipeData)
   .catch(error => console.log(error.message));
-//
+
 Promise.all([recipeData, ingredientData, users])
   .then(data => {
     recipeData = data[0];
@@ -47,7 +47,6 @@ document.addEventListener('click', cardButtonConditionals)
 
 function searchRecipes() {
   let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
-
   populateCards(searchResults);
   searchInput.value = ''
 }
@@ -108,7 +107,6 @@ function checkKeyPressedForSearch(event) {
     searchRecipes()
   }
 }
-
 /////////////////////////////
 
 // FAVORITE FUNCTIONS //
@@ -151,16 +149,6 @@ function checkFavoriteActive() {
     })
   }
 }
-
-function checkRecipeToCookActive() {
-  if (!user.recipesToCook.length) {
-    return
-  } else {
-    user.recipesToCook.forEach(recipe => {
-      document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active');
-    })
-  }
-}
 /////////////////////////////
 
 // RECIPE TO COOK FUNCTIONS //
@@ -191,6 +179,16 @@ function recipeToCookCard(event) {
   } else if (event.target.classList.contains('to-cook-active')) {
     event.target.classList.remove('to-cook-active');
     user.removeFromRecipeToCook(specificRecipe);
+  }
+}
+
+function checkRecipeToCookActive() {
+  if (!user.recipesToCook.length) {
+    return
+  } else {
+    user.recipesToCook.forEach(recipe => {
+      document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active');
+    })
   }
 }
 /////////////////////////////
