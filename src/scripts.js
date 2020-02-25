@@ -31,22 +31,22 @@ Promise.all([recipeData, ingredientData, users])
   .catch(error => console.log(error.message))
 
 let favButton = document.querySelector('.view-favorites');
+let searchInput = document.querySelector('#search-input');
 let recipesToCookButton = document.querySelector('.view-recipe-to-cook');
 let homeButton = document.querySelector('.home');
 let searchButton = document.querySelector('#search-button');
 let cardArea = document.querySelector('.all-cards');
-let user, pantry, cookbook;
+let user, pantry, cookbook, recipeObject;
 
-homeButton.addEventListener('click', cardButtonConditionals);
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
 favButton.addEventListener('click', viewFavorites);
-cardArea.addEventListener('click', cardButtonConditionals);
 cardArea.addEventListener('keyup', checkKeyPressedForAdd);
 cardArea.addEventListener('keyup', checkKeyPressed);
 searchButton.addEventListener('click', searchRecipes);
+searchInput.addEventListener('keyup', checkKeyPressedForSearch);
+document.addEventListener('click', cardButtonConditionals)
 
 function searchRecipes() {
-  let searchInput = document.querySelector('#search-input');
   let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
 
   populateCards(searchResults);
@@ -54,14 +54,14 @@ function searchRecipes() {
 }
 
 // ONLOAD DISPLAY //
-function onStartup(usersData, ingredientData, recipesData) {
+function onStartup(userData, ingredientData, recipeData) {
   let userId = (Math.floor(Math.random() * 49) + 1)
-  let newUser = usersData.find(user => {
+  let newUser = userData.find(user => {
     return user.id === Number(userId);
   });
   user = new User(newUser)
   pantry = new Pantry(newUser.pantry, ingredientData)
-  cookbook = new Cookbook(recipesData);
+  cookbook = new Cookbook(recipeData, ingredientData);
   populateCards(cookbook.recipes);
   greetUser();
 }
@@ -85,6 +85,10 @@ function cardButtonConditionals(event) {
     populateCards(cookbook.recipes);
   } else if (event.target.classList.contains('recipe-to-cook')) {
     recipeToCookCard(event);
+  } else if (event.target.classList.contains('buy-ingredients')) {
+    pantry.updatePantryContent(user, recipeObject);
+  } else if (event.target.classList.contains('cook-recipe')) {
+    pantry.removeConsumedIngredients(user, recipeObject);
   }
 }
 
@@ -99,6 +103,13 @@ function checkKeyPressedForAdd(event) {
     recipeToCookCard(event)
   }
 }
+
+function checkKeyPressedForSearch(event) {
+  if (event.keyCode === 13) {
+    searchRecipes()
+  }
+}
+
 /////////////////////////////
 
 // FAVORITE FUNCTIONS //
@@ -114,6 +125,7 @@ function viewFavorites() {
     createRecipeCards(user.favoriteRecipes);
   }
   checkFavoriteActive();
+  // checkRecipeToCookActive();
 }
 
 function favoriteCard(event) {
@@ -133,19 +145,23 @@ function favoriteCard(event) {
 }
 
 function checkFavoriteActive() {
-  if (user.favoriteRecipes.length) {
+  if (!user.favoriteRecipes.length) {
+    return
+  } else {
     user.favoriteRecipes.forEach(recipe => {
       document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
     })
-  } else return
+  }
 }
 
 // function checkRecipeToCookActive() {
-//   if (user.recipesToCook.length) {
+//   if (!user.recipesToCook.length) {
+//     return
+//   } else {
 //     user.recipesToCook.forEach(recipe => {
-//       document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active')
+//       document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active');
 //     })
-//   } else return
+//   }
 // }
 /////////////////////////////
 
@@ -153,15 +169,16 @@ function checkFavoriteActive() {
 function viewRecipesToCook() {
   cardArea.classList.remove('all')
   if (!user.recipesToCook.length) {
-    recipesToCookButton.innerHTML = 'You have no Recipe to Cook!';
+    recipesToCookButton.innerHTML = 'You have no Recipes to Cook!';
     populateCards(cookbook.recipes);
     return
   } else {
-    recipesToCookButton.innerHTML = 'Refresh Recipe to Cook'
+    recipesToCookButton.innerHTML = 'Refresh Recipes to Cook'
     cardArea.innerHTML = '';
-    createRecipeCards(user.recipesToCook)
+    createRecipeCards(user.recipesToCook);
   }
   checkFavoriteActive();
+  // checkRecipeToCookActive();
 }
 
 function recipeToCookCard(event) {
@@ -187,6 +204,7 @@ function populateCards(recipes) {
   cardArea.classList.remove('all')
   createRecipeCards(recipes);
   checkFavoriteActive();
+  // checkRecipeToCookActive();
 };
 
 function createRecipeCards(selectedRecipeData) {
@@ -214,14 +232,23 @@ function displayDirections(event) {
       return recipe;
     }
   })
-  let recipeObject = new Recipe(newRecipeInfo, ingredientData, recipeData);
-  let cost = recipeObject.calculateCost()
-  let costInDollars = (cost / 100).toFixed(2)
+  recipeObject = new Recipe(newRecipeInfo, ingredientData, recipeData);
+  let cost = recipeObject.calculateCost().toFixed(2);
+  let missingIngredients = pantry.determineAdditionalNeededIngredients(recipeObject);
+  let missingCost = pantry.calculateCostOfAdditionalIngredients(recipeObject);
   cardArea.classList.add('all');
-  cardArea.innerHTML = `<h3>${recipeObject.name}</h3>
+  cardArea.innerHTML =
+  `<span><h3>${recipeObject.name}</h3>
+  <p class="ingredients-confirmation">You do not have all the ingredients needed to cook this recipe! Here's what you're missing:</p>
+  ${missingIngredients.join('')}
+  <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
+  <button class="close-recipe home">Close Recipe</button>
+  <button class="buy-ingredients">Buy Missing Ingredients</button>
+  <button class="cook-recipe">Cook Recipe</button>
+  </span>
   <p class='all-recipe-info'>
   <strong>It will cost: </strong><span class='cost recipe-info'>
-  $${costInDollars}</span><br><br>
+  $${cost}</span><br><br>
   <strong>You will need: </strong><span class='ingredients recipe-info'></span>
   <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
   </span></ol>
@@ -229,9 +256,10 @@ function displayDirections(event) {
   let ingredientsSpan = document.querySelector('.ingredients');
   let instructionsSpan = document.querySelector('.instructions');
   recipeObject.ingredients.forEach(ingredient => {
+    let ingredientName = recipeObject.ingredientsData.find(el => el.id === ingredient.id).name
     ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
     ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
-    ${ingredient.name}</li></ul>
+    ${ingredientName}</li></ul>
     `)
   })
   recipeObject.instructions.forEach(instruction => {

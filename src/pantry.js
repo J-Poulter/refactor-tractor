@@ -8,7 +8,7 @@ class Pantry {
 
     let ingredientDetails = chosenRecipe.ingredients.map(ingredient => {
       return {
-        name: ingredient.name,
+        name: (this.ingredientsData.find(el => el.id === ingredient.id)).name,
         id: ingredient.id,
         qty: ingredient.quantity.amount,
         unit: ingredient.quantity.unit,
@@ -40,34 +40,69 @@ class Pantry {
     return (ingredientsNeeded.length > 0) ? false : true;
   }
 
-
   determineAdditionalNeededIngredients(chosenRecipe) {
     let ingredientsNeeded = this.compareRecipeToPantryIngredients(chosenRecipe);
     let neededQuantity = ingredientsNeeded.map(ingredient => {
-      return `${ingredient.name} ${ingredient.qty} ${ingredient.unit}`
+      return `<li>${ingredient.qty.toFixed(2)} ${ingredient.unit} - ${ingredient.name}</li>`
     })
     return neededQuantity
   }
 
   calculateCostOfAdditionalIngredients(chosenRecipe) {
     let ingredientsNeeded = this.compareRecipeToPantryIngredients(chosenRecipe);
-    let additionalIngredientCost = ingredientsNeeded.map(ingredient => {
-      return ingredient.name + ' $' + (ingredient.qty * ingredient.cost)/100
-    })
     let totalCost = ingredientsNeeded.reduce((cost, cur) => {
       cost += (cur.qty * cur.cost)/100
       return cost
     }, 0).toFixed(2)
-    additionalIngredientCost.push('total $' + totalCost)
-    return additionalIngredientCost
+    return totalCost;
   }
 
-  updatePantryContent() {
-
+  updatePantryContent(user, chosenRecipe) {
+    let ingredientsNeeded = this.compareRecipeToPantryIngredients(chosenRecipe).map(el => {
+      return {
+        "userID": user.id,
+        "ingredientID": el.id,
+        "ingredientModification": el.qty
+      }
+    })
+    ingredientsNeeded.forEach(ingredientObject => {
+      fetch("https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(ingredientObject),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => console.log(error.message))
+    })
   }
 
-  removeConsumedIngredients() {
-
+  removeConsumedIngredients(user, chosenRecipe) {
+    let consumedIngredients = chosenRecipe.ingredients.map(el => {
+      return {
+        "userID": user.id,
+        "ingredientID": el.id,
+        "ingredientModification": -el.quantity.amount
+      }
+    })
+    consumedIngredients.forEach(ingredientObject => {
+      fetch("https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(ingredientObject),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => console.log(error.message))
+    })
   }
 
 }
