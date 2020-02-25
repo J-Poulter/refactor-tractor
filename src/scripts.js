@@ -78,7 +78,7 @@ function cardButtonConditionals(event) {
     displayDirections(event);
   } else if (event.target.classList.contains('home')) {
     favButton.innerHTML = 'View Favorites';
-    recipesToCookButton.innerHTML = 'View Recipe To Cook';
+    recipesToCookButton.innerHTML = 'View Recipes to Cook';
     populateCards(cookbook.recipes);
   } else if (event.target.classList.contains('add-recipe-to-cook-button')) {
     recipeToCookCard(event);
@@ -106,7 +106,7 @@ function checkKeyPressedForSearch(event) {
 function viewFavorites() {
   cardArea.classList.remove('all')
   if (!user.favoriteRecipes.length) {
-    favButton.innerHTML = 'You have no favorites!';
+    favButton.innerHTML = 'No favorites!';
     populateCards(cookbook.recipes);
     return
   } else {
@@ -148,7 +148,7 @@ function checkFavoriteActive() {
 function viewRecipesToCook() {
   cardArea.classList.remove('all')
   if (!user.recipesToCook.length) {
-    recipesToCookButton.innerHTML = 'You have no Recipes to Cook!';
+    recipesToCookButton.innerHTML = 'No recipes saved!';
     populateCards(cookbook.recipes);
     return
   } else {
