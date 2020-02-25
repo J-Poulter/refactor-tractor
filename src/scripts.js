@@ -250,6 +250,7 @@ function displayDirections(event) {
   <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
   </span></ol>
   </p>`;
+
   let ingredientsSpan = document.querySelector('.ingredients');
   let instructionsSpan = document.querySelector('.instructions');
   recipeObject.ingredients.forEach(ingredient => {
@@ -264,5 +265,12 @@ function displayDirections(event) {
     ${instruction.instruction}</li>
     `)
   })
+
+  let ingredientsConfirmation = document.querySelector('.ingredients-confirmation');
+  let missingIngredientsCost = document.querySelector('.ingredients-cost');
+  if (missingIngredients.length === 0) {
+    ingredientsConfirmation.innerText = `You have all the ingredients needed for this recipe!`;
+    missingIngredientsCost.innerText = '';
+  }
 }
 /////////////////////////////
