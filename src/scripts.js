@@ -19,7 +19,7 @@ let recipeData = fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/r
   .then(response => response.json())
   .then(data => data.recipeData)
   .catch(error => console.log(error.message));
-//
+
 Promise.all([recipeData, ingredientData, users])
   .then(data => {
     recipeData = data[0];
@@ -47,7 +47,6 @@ document.addEventListener('click', cardButtonConditionals)
 
 function searchRecipes() {
   let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
-
   populateCards(searchResults);
   searchInput.value = ''
 }
@@ -82,7 +81,7 @@ function cardButtonConditionals(event) {
     favButton.innerHTML = 'View Favorites';
     recipesToCookButton.innerHTML = 'View Recipe To Cook';
     populateCards(cookbook.recipes);
-  } else if (event.target.classList.contains('add-button')) {
+  } else if (event.target.classList.contains('add-recipe-to-cook-button')) {
     recipeToCookCard(event);
   } else if (event.target.classList.contains('buy-ingredients')) {
     pantry.updatePantryContent(user, recipeObject);
@@ -98,7 +97,7 @@ function checkKeyPressed(event) {
 }
 
 function checkKeyPressedForAdd(event) {
-  if (event.keyCode === 13 && event.target.classList.contains('add-button')) {
+  if (event.keyCode === 13 && event.target.classList.contains('add-recipe-to-cook-button')) {
     recipeToCookCard(event)
   }
 }
@@ -108,7 +107,6 @@ function checkKeyPressedForSearch(event) {
     searchRecipes()
   }
 }
-
 /////////////////////////////
 
 // FAVORITE FUNCTIONS //
@@ -151,16 +149,6 @@ function checkFavoriteActive() {
     })
   }
 }
-
-function checkRecipeToCookActive() {
-  if (!user.recipesToCook.length) {
-    return
-  } else {
-    user.recipesToCook.forEach(recipe => {
-      document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active');
-    })
-  }
-}
 /////////////////////////////
 
 // RECIPE TO COOK FUNCTIONS //
@@ -193,6 +181,16 @@ function recipeToCookCard(event) {
     user.removeFromRecipeToCook(specificRecipe);
   }
 }
+
+function checkRecipeToCookActive() {
+  if (!user.recipesToCook.length) {
+    return
+  } else {
+    user.recipesToCook.forEach(recipe => {
+      document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active');
+    })
+  }
+}
 /////////////////////////////
 
 // RECIPE DISPLAY //
@@ -209,8 +207,8 @@ function createRecipeCards(selectedRecipeData) {
     cardArea.insertAdjacentHTML('afterbegin',
     `<div id='${recipe.id}' class='card'>
         <header data-id='${recipe.id}' class='card-header'>
-          <label for='add-button' class='hidden'>Click to add recipe</label>
-          <button data-id='${recipe.id}' aria-label='add-button' class='to-cook${recipe.id} add-button card-button'>
+          <label for='add-recipe-to-cook-button' class='hidden'>Click to add recipe</label>
+          <button data-id='${recipe.id}' aria-label='add-recipe-to-cook-button' class='to-cook${recipe.id} add-recipe-to-cook-button card-button'>
           </button>
           <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
           <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite${recipe.id} favorite card-button'></button>
@@ -235,7 +233,7 @@ function displayDirections(event) {
   cardArea.classList.add('all');
   cardArea.innerHTML =
   `<span><h3>${recipeObject.name}</h3>
-  <p class="ingredients-confirmation">You do not have all the ingredients needed to cook this recipe! Here's what you're missing:</p>
+  <p class="ingredients-confirmation">Ingredients Needed:</p>
   ${missingIngredients.join('')}
   <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
   <button class="close-recipe home">Close Recipe</button>

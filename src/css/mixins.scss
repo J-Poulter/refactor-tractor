@@ -3,6 +3,14 @@
   width: 100%;
 }
 
+@mixin recipe-button-style() {
+  width: 13%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  background-size: 25px auto;
+}
+
 @mixin default-cards() {
   display: grid;
   grid-gap: 30px;
@@ -22,14 +30,18 @@
   }
 }
 
+@mixin grid-defaults($value) {
+  .all-cards {
+    @include default-cards;
+    grid-template-columns: repeat($value, 1fr);
+  }
+}
+
 @mixin xs {
   @media (min-width: #{$screen-xs}) {
     @content;
     @include small-screen-header;
-    .all-cards {
-      @include default-cards;
-      grid-template-columns: repeat(1, 1fr);
-    }
+    @include grid-defaults(1);
     .main-header {
       flex-flow: row wrap;
     }
@@ -40,10 +52,8 @@
   @media (min-width: #{$screen-sm}) {
     @content;
     @include small-screen-header;
-  }
-  .all-cards {
-    @include default-cards;
-    grid-template-columns: repeat(1, 1fr);
+    @include grid-defaults(1);
+
   }
   .main-header {
     flex-flow: column nowrap;
@@ -54,22 +64,16 @@
   @media (min-width: #{$screen-md}) {
     @content;
     @include small-screen-header;
-    .all-cards {
-      @include default-cards;
-      grid-template-columns: repeat(2, 1fr);
-    }
+    @include grid-defaults(2);
   }
 }
 
 @mixin lg {
   @media (min-width: #{$screen-lg}) {
     @content;
+    @include grid-defaults(3);
     h1 {
       width: 100%;
-    }
-    .all-cards {
-      @include default-cards;
-      grid-template-columns: repeat(3, 1fr);
     }
     .user-info {
       width: 100%;
@@ -80,10 +84,7 @@
 @mixin xl {
   @media (min-width: #{$screen-xl}) {
     @content;
-    .all-cards {
-      @include default-cards;
-      grid-template-columns: repeat(4, 1fr);
-    }
+    @include grid-defaults(4);
     .main-header {
       flex-flow: row nowrap;
     }
