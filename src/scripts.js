@@ -154,15 +154,15 @@ function checkFavoriteActive() {
   }
 }
 
-// function checkRecipeToCookActive() {
-//   if (!user.recipesToCook.length) {
-//     return
-//   } else {
-//     user.recipesToCook.forEach(recipe => {
-//       document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active');
-//     })
-//   }
-// }
+function checkRecipeToCookActive() {
+  if (!user.recipesToCook.length) {
+    return
+  } else {
+    user.recipesToCook.forEach(recipe => {
+      document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active');
+    })
+  }
+}
 /////////////////////////////
 
 // RECIPE TO COOK FUNCTIONS //
@@ -177,8 +177,8 @@ function viewRecipesToCook() {
     cardArea.innerHTML = '';
     createRecipeCards(user.recipesToCook);
   }
-  checkFavoriteActive();
-  // checkRecipeToCookActive();
+  // checkFavoriteActive();
+  checkRecipeToCookActive();
 }
 
 function recipeToCookCard(event) {
@@ -204,7 +204,7 @@ function populateCards(recipes) {
   cardArea.classList.remove('all')
   createRecipeCards(recipes);
   checkFavoriteActive();
-  // checkRecipeToCookActive();
+  checkRecipeToCookActive();
 };
 
 function createRecipeCards(selectedRecipeData) {
