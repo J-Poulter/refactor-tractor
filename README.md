@@ -7,7 +7,9 @@ When the user opens the dashboard, they can view a cookbook of recipes. The user
 
 #### Team
 [Tim Nguyen](https://github.com/TimNguyen21)
+
 [Jeremy Poulter](https://github.com/J-Poulter)
+
 [Cristina Peña](https://github.com/CLPena)
 
 #### In Action
