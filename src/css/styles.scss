@@ -101,10 +101,6 @@ h1 {
   width: 12%;
 }
 
-.add-image {
-  @include full-size();
-}
-
 .hidden {
   display: none;
 }
@@ -178,10 +174,13 @@ main {
 }
 
 .to-cook-active {
-  background-color: $background-blue;
+  background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
   background-repeat: no-repeat;
 }
 
-.add-image {
-  @include full-size();
+.add-button {
+  width: 13%;
+  background-color: #83c379;
+  background-repeat: no-repeat;
+  background-position: center;
 }

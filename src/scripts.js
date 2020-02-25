@@ -83,7 +83,7 @@ function cardButtonConditionals(event) {
     favButton.innerHTML = 'View Favorites';
     recipesToCookButton.innerHTML = 'View Recipe To Cook';
     populateCards(cookbook.recipes);
-  } else if (event.target.classList.contains('recipe-to-cook')) {
+  } else if (event.target.classList.contains('add-button')) {
     recipeToCookCard(event);
   } else if (event.target.classList.contains('buy-ingredients')) {
     pantry.updatePantryContent(user, recipeObject);
@@ -125,7 +125,6 @@ function viewFavorites() {
     createRecipeCards(user.favoriteRecipes);
   }
   checkFavoriteActive();
-  // checkRecipeToCookActive();
 }
 
 function favoriteCard(event) {
@@ -154,15 +153,15 @@ function checkFavoriteActive() {
   }
 }
 
-// function checkRecipeToCookActive() {
-//   if (!user.recipesToCook.length) {
-//     return
-//   } else {
-//     user.recipesToCook.forEach(recipe => {
-//       document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active');
-//     })
-//   }
-// }
+function checkRecipeToCookActive() {
+  if (!user.recipesToCook.length) {
+    return
+  } else {
+    user.recipesToCook.forEach(recipe => {
+      document.querySelector(`.to-cook${recipe.id}`).classList.add('to-cook-active');
+    })
+  }
+}
 /////////////////////////////
 
 // RECIPE TO COOK FUNCTIONS //
@@ -177,8 +176,7 @@ function viewRecipesToCook() {
     cardArea.innerHTML = '';
     createRecipeCards(user.recipesToCook);
   }
-  checkFavoriteActive();
-  // checkRecipeToCookActive();
+  checkRecipeToCookActive();
 }
 
 function recipeToCookCard(event) {
@@ -204,7 +202,7 @@ function populateCards(recipes) {
   cardArea.classList.remove('all')
   createRecipeCards(recipes);
   checkFavoriteActive();
-  // checkRecipeToCookActive();
+  checkRecipeToCookActive();
 };
 
 function createRecipeCards(selectedRecipeData) {
@@ -214,7 +212,6 @@ function createRecipeCards(selectedRecipeData) {
         <header data-id='${recipe.id}' class='card-header'>
           <label for='add-button' class='hidden'>Click to add recipe</label>
           <button data-id='${recipe.id}' aria-label='add-button' class='to-cook${recipe.id} add-button card-button'>
-            <img data-id='${recipe.id}' class='add-image recipe-to-cook' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to recipes to cook'>
           </button>
           <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
           <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite${recipe.id} favorite card-button'></button>
