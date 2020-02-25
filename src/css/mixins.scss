@@ -2,99 +2,87 @@
   height: 100%;
   width: 100%;
 }
-@mixin xs {
-   @media (min-width: #{$screen-xs}) {
-       @content;
-       h1 {
-         width: 100%;
-       }
-       .user-info {
-         width: 100%;
-       }
-       .search-bar {
-         width: 100%;
-       }
-       .all-cards {
-         display: grid;
-         grid-gap: 30px;
-         grid-template-columns: repeat(1, 1fr);
-         padding: 20px 0 20px 20px;
-         width: 95.5vw;
-       }
-       .main-header {
-         flex-flow: row wrap;
-       }
-   }
+
+@mixin default-cards() {
+  display: grid;
+  grid-gap: 30px;
+  padding: 30px 0 30px 30px;
+  width: 95.5vw;
 }
+
+@mixin small-screen-header() {
+  h1 {
+    width: 100%;
+  }
+  .user-info {
+    width: 100%;
+  }
+  .search-bar {
+    width: 100%;
+  }
+}
+
+@mixin xs {
+  @media (min-width: #{$screen-xs}) {
+    @content;
+    @include small-screen-header;
+    .all-cards {
+      @include default-cards;
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .main-header {
+      flex-flow: row wrap;
+    }
+  }
+}
+
 @mixin sm {
-   @media (min-width: #{$screen-sm}) {
-       @content;
-       h1 {
-         width: 100%;
-       }
-       .user-info {
-         width: 100%;
-       }
-       .search-bar {
-         width: 100%;
-       }
-       .all-cards {
-         display: grid;
-         grid-gap: 30px;
-         grid-template-columns: repeat(2, 1fr);
-         padding: 20px 0 20px 20px;
-         width: 95.5vw;
-       }
-   }
+  @media (min-width: #{$screen-sm}) {
+    @content;
+    @include small-screen-header;
+  }
+  .all-cards {
+    @include default-cards;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .main-header {
+    flex-flow: column nowrap;
+  }
 }
 
 @mixin md {
-   @media (min-width: #{$screen-md}) {
-       @content;
-       h1 {
-         width: 100%;
-       }
-       .user-info {
-         width: 100%;
-       }
-       .all-cards {
-         display: grid;
-         grid-gap: 30px;
-         grid-template-columns: repeat(2, 1fr);
-         padding: 20px 0 20px 20px;
-         width: 95.5vw;
-       }
-   }
+  @media (min-width: #{$screen-md}) {
+    @content;
+    @include small-screen-header;
+    .all-cards {
+      @include default-cards;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 }
 
 @mixin lg {
-   @media (min-width: #{$screen-lg}) {
-       @content;
-       h1 {
-         width: 100%;
-       }
-       .all-cards {
-         display: grid;
-         grid-gap: 30px;
-         grid-template-columns: repeat(3, 1fr);
-         padding: 20px 0 20px 20px;
-         width: 95.5vw;
-       }
-       .user-info {
-         width: 100%;
-       }
-   }
+  @media (min-width: #{$screen-lg}) {
+    @content;
+    h1 {
+      width: 100%;
+    }
+    .all-cards {
+      @include default-cards;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .user-info {
+      width: 100%;
+    }
+  }
 }
 
 @mixin xl {
-   @media (min-width: #{$screen-xl}) {
-     @content;
+  @media (min-width: #{$screen-xl}) {
+    @content;
     .all-cards {
-      display: grid;
-      grid-gap: 30px;
+      @include default-cards;
       grid-template-columns: repeat(4, 1fr);
-      padding: 30px 0 30px 30px;
-      width: 95.5vw;
     }
     .main-header {
       flex-flow: row nowrap;

@@ -1,5 +1,7 @@
 @import 'variables';
 @import 'mixins';
+@import 'header-styles';
+@import 'recipe-card-styles';
 
 html {
   background-color: $background-blue;
@@ -18,129 +20,9 @@ body {
   margin: auto;
 }
 
-.main-header {
-  background-color: $background-white;
-  border: $border-black;
-  display: flex;
-  height: auto;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.navButton {
-  background-color: $background-white;
-  border-left: $border-side-black;
-  border-right: $border-side-black;
-  font-size: 130%;
-  margin: 1%;
-}
-
-h1 {
-  border-right: $border-black;
-  font-size: 255%;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 10px;
-  text-align: center;
-  width: 30%;
-  color: complement($background-blue)
-}
-
-.user-info {
-  font-size: 180%;
-  margin: auto;
-  text-align: center;
-  width: 40%
-}
-
-.search-bar {
-  display: flex;
-  height: 100%;
-  margin: 10px 0px;
-  width: 30%;
-}
-
-.search-button {
-  background-color: $background-white;
-  border: $border-side-black;
-  width: 33px;
-  height: 33px;
-  margin-top: 3px;
-}
-
-.search-image {
+main {
+  background-color: $background-blue;
   @include full-size();
-}
-
-.search-image,
-.card-button,
-.navButton,
-.search-button {
-  &:hover {background-color: #cff2da};
-  &:active {background-color: #C3C2C6};
-}
-
-.search-input {
-  border: $border-side-black;
-  font-size: 100%;
-  height: 7vh;
-  margin: 3px 7px 0px 0px;
-  padding-left: 10px;
-  width: 90%;
-}
-
-.card-button {
-  border: $border-side-black;
-  height: 27px;
-  margin: 3px;
-}
-
-.add-to-cook-button {
-  background-color: $background-white;
-  display: flex;
-  width: 12%;
-}
-
-.hidden {
-  display: none;
-}
-
-.favorite {
-  background-color: $background-white;
-  background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 13%;
-}
-
-img {
-  cursor: pointer;
-}
-
-.card {
-  background-color: #D7F2FE;
-  border: 3px solid #000;
-  height: 331 px;
-  width: 270px;
-}
-
-.card-header {
-  background-color: $background-white;
-  border-bottom: $border-side-black;
-  display: flex;
-  justify-content: space-between;
-}
-
-.all {
-  grid-gap: 0px;
-  grid-template-columns: repeat(1, 1fr);
-}
-
-.all-recipe-info,
-ol {
-  color: $background-white;
-  font-size: 220%;
-  width: 100%;
 }
 
 h3 {
@@ -148,39 +30,10 @@ h3 {
   font-size: 250%;
 }
 
-.recipe-name {
-  display: block;
-  font-size: 150%;
-  text-align: center;
+.hidden {
+  display: none;
 }
 
-.card-picture {
-  border: $border-side-black;
-  height: 200px;
-  margin: 10px 3% 8px 2.6%;
-  width: 94%;
-  &:hover {opacity: 0.7}
-  &:active {border: $border-black;}
-}
-
-main {
-  background-color: $background-blue;
-  @include full-size();
-}
-
-.favorite-active {
-  background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
-  background-repeat: no-repeat;
-}
-
-.to-cook-active {
-  background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
-  background-repeat: no-repeat;
-}
-
-.add-button {
-  width: 13%;
-  background-color: #83c379;
-  background-repeat: no-repeat;
-  background-position: center;
+img {
+  cursor: pointer;
 }
