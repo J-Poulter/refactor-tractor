@@ -90,7 +90,7 @@ describe('Pantry', function() {
   });
 
   it('should be able to return the cost of the additional ingredients, individually and the total', function() {
-    expect(pantry1.calculateCostOfAdditionalIngredients(recipeData[47])).to.deep.equal(['cheese $17', 'flatbread $3.26', 'fresh basil $6.09', 'grape tomatoes $0.84', 'olive oil $7.05', 'total $34.24'])
+    expect(pantry1.calculateCostOfAdditionalIngredients(recipeData[47])).to.deep.equal('34.24')
   });
   //
   // it.skip('should be able to update the Pantrys content', function() {
