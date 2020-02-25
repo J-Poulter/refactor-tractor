@@ -1,14 +1,13 @@
 import {expect} from 'chai';
 
-
-import recipeData from '../src/data/recipes';
+import ingredientsData from '../src/data/ingredients'
 import Cookbook from '../src/cookbook';
 
-let cookbook;
+let recipeData, cookbook;
 
 describe('Cookbook', () => {
   beforeEach(() => {
-    cookbook = new Cookbook(recipeData);
+    cookbook = new Cookbook(recipeData, ingredientsData);
   });
 
   it('Should have an array of all recipes', () => {
@@ -17,11 +16,11 @@ describe('Cookbook', () => {
 
   describe('findRecipe', () => {
     it('Should be able to filter through its array by ingredients', () => {
-      expect(cookbook.findRecipe('yolk').length).to.equal(2);
+      expect(cookbook.findRecipe('eggs').length).to.equal(1);
     });
 
     it('Should be able to filter through its array by name', () => {
-      expect(cookbook.findRecipe('Sesame Cookies').length).to.equal(1);
+      expect(cookbook.findRecipe('Loaded Chocolate').length).to.equal(1);
     });
   });
 })
