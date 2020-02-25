@@ -39,7 +39,6 @@ let user, pantry, cookbook, recipeObject;
 
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
 favButton.addEventListener('click', viewFavorites);
-cardArea.addEventListener('keyup', checkKeyPressedForAdd);
 cardArea.addEventListener('keyup', checkKeyPressed);
 searchButton.addEventListener('click', searchRecipes);
 searchInput.addEventListener('keyup', checkKeyPressedForSearch);
@@ -93,12 +92,6 @@ function cardButtonConditionals(event) {
 function checkKeyPressed(event) {
   if (event.keyCode === 13 && event.target.classList.contains('card-picture')) {
     displayDirections(event);
-  }
-}
-
-function checkKeyPressedForAdd(event) {
-  if (event.keyCode === 13 && event.target.classList.contains('add-recipe-to-cook-button')) {
-    recipeToCookCard(event)
   }
 }
 

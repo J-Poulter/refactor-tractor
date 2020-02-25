@@ -34,6 +34,11 @@ h3 {
   display: none;
 }
 
-img {
+img, button {
   cursor: pointer;
+  @include highlight;
+}
+
+input {
+  @include highlight;
 }
