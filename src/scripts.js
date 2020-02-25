@@ -82,7 +82,7 @@ function cardButtonConditionals(event) {
     favButton.innerHTML = 'View Favorites';
     recipesToCookButton.innerHTML = 'View Recipe To Cook';
     populateCards(cookbook.recipes);
-  } else if (event.target.classList.contains('add-button')) {
+  } else if (event.target.classList.contains('add-recipe-to-cook-button')) {
     recipeToCookCard(event);
   } else if (event.target.classList.contains('buy-ingredients')) {
     pantry.updatePantryContent(user, recipeObject);
@@ -98,7 +98,7 @@ function checkKeyPressed(event) {
 }
 
 function checkKeyPressedForAdd(event) {
-  if (event.keyCode === 13 && event.target.classList.contains('add-button')) {
+  if (event.keyCode === 13 && event.target.classList.contains('add-recipe-to-cook-button')) {
     recipeToCookCard(event)
   }
 }
@@ -209,8 +209,8 @@ function createRecipeCards(selectedRecipeData) {
     cardArea.insertAdjacentHTML('afterbegin',
     `<div id='${recipe.id}' class='card'>
         <header data-id='${recipe.id}' class='card-header'>
-          <label for='add-button' class='hidden'>Click to add recipe</label>
-          <button data-id='${recipe.id}' aria-label='add-button' class='to-cook${recipe.id} add-button card-button'>
+          <label for='add-recipe-to-cook-button' class='hidden'>Click to add recipe</label>
+          <button data-id='${recipe.id}' aria-label='add-recipe-to-cook-button' class='to-cook${recipe.id} add-recipe-to-cook-button card-button'>
           </button>
           <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
           <button data-id='${recipe.id}' aria-label='favorite-button' class='favorite${recipe.id} favorite card-button'></button>

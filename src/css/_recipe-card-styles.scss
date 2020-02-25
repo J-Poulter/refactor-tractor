@@ -4,20 +4,6 @@
   margin: 3px;
 }
 
-.add-to-cook-button {
-  background-color: $background-white;
-  display: flex;
-  width: 12%;
-}
-
-.favorite {
-  background-color: $background-white;
-  background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 13%;
-}
-
 .card {
   background-color: #D7F2FE;
   border: 3px solid #000;
@@ -59,27 +45,23 @@ ol {
   &:active {border: $border-black;}
 }
 
+.favorite {
+  background-color: $background-white;
+  background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
+  @include recipe-button-style();
+}
+
 .favorite-active {
   background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
-  background-repeat: no-repeat;
+}
+
+.add-recipe-to-cook-button {
+  background-image: url(https://i.ya-webdesign.com/images/black-plus-sign-png.png);
+  @include recipe-button-style();
 }
 
 .to-cook-active {
-  width: 13%;
   background-color: #00a1d6;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-  background-size: 25px auto;
-}
-
-.add-button {
-  width: 13%;
-  background-image: url(https://i.ya-webdesign.com/images/black-plus-sign-png.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-  background-size: 25px auto;
 }
 
 .ingredients-confirmation,

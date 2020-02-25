@@ -3,6 +3,14 @@
   width: 100%;
 }
 
+@mixin recipe-button-style() {
+  width: 13%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  background-size: 25px auto;
+}
+
 @mixin default-cards() {
   display: grid;
   grid-gap: 30px;
