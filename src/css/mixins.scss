@@ -18,6 +18,12 @@
   width: 95.5vw;
 }
 
+@mixin highlight() {
+  &:focus {
+    outline: 2px solid $red;
+  }
+}
+
 @mixin small-screen-header() {
   h1 {
     width: 100%;
