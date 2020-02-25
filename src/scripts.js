@@ -36,7 +36,7 @@ let recipesToCookButton = document.querySelector('.view-recipe-to-cook');
 let homeButton = document.querySelector('.home');
 let searchButton = document.querySelector('#search-button');
 let cardArea = document.querySelector('.all-cards');
-let user, pantry, cookbook;
+let user, pantry, cookbook, recipeObject;
 
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
 favButton.addEventListener('click', viewFavorites);
@@ -85,6 +85,10 @@ function cardButtonConditionals(event) {
     populateCards(cookbook.recipes);
   } else if (event.target.classList.contains('recipe-to-cook')) {
     recipeToCookCard(event);
+  } else if (event.target.classList.contains('buy-ingredients')) {
+    pantry.updatePantryContent(user, recipeObject);
+  } else if (event.target.classList.contains('cook-recipe')) {
+    pantry.removeConsumedIngredients(user);
   }
 }
 
@@ -228,7 +232,7 @@ function displayDirections(event) {
       return recipe;
     }
   })
-  let recipeObject = new Recipe(newRecipeInfo, ingredientData, recipeData);
+  recipeObject = new Recipe(newRecipeInfo, ingredientData, recipeData);
   let cost = recipeObject.calculateCost().toFixed(2);
   let missingIngredients = pantry.determineAdditionalNeededIngredients(recipeObject);
   let missingCost = pantry.calculateCostOfAdditionalIngredients(recipeObject);
@@ -238,9 +242,9 @@ function displayDirections(event) {
   <p class="ingredients-confirmation">You do not have all the ingredients needed to cook this recipe! Here's what you're missing:</p>
   ${missingIngredients.join('')}
   <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
-  <button id="close-recipe" class="home">Close Recipe</button>
-  <button id="buy-ingredients">Buy Missing Ingredients</button>
-  <button id="cook-recipe">Cook Recipe</button>
+  <button class="close-recipe home">Close Recipe</button>
+  <button class="buy-ingredients">Buy Missing Ingredients</button>
+  <button class="cook-recipe">Cook Recipe</button>
   </span>
   <p class='all-recipe-info'>
   <strong>It will cost: </strong><span class='cost recipe-info'>
