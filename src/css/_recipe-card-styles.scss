@@ -56,12 +56,14 @@ ol {
 }
 
 .add-recipe-to-cook-button {
-  background-image: url(https://i.ya-webdesign.com/images/black-plus-sign-png.png);
+  background-image: url(https://image.flaticon.com/icons/svg/1689/1689073.svg);
   @include recipe-button-style();
 }
 
 .to-cook-active {
   background-color: #00a1d6;
+  background-image: url(https://image.flaticon.com/icons/svg/1689/1689235.svg);
+
 }
 
 .ingredients-confirmation,
