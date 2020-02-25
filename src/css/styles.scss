@@ -1,5 +1,6 @@
 @import 'variables';
 @import 'mixins';
+@import 'header-styles';
 
 html {
   background-color: $background-blue;
@@ -16,77 +17,6 @@ body {
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
   margin: auto;
-}
-
-.main-header {
-  background-color: $background-white;
-  border: $border-black;
-  display: flex;
-  height: auto;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.navButton {
-  background-color: $background-white;
-  border-left: $border-side-black;
-  border-right: $border-side-black;
-  font-size: 130%;
-  margin: 1%;
-}
-
-h1 {
-  border-right: $border-black;
-  font-size: 255%;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 10px;
-  text-align: center;
-  width: 30%;
-  color: complement($background-blue)
-}
-
-.user-info {
-  font-size: 180%;
-  margin: auto;
-  text-align: center;
-  width: 40%
-}
-
-.search-bar {
-  display: flex;
-  height: 100%;
-  margin: 10px 0px;
-  width: 30%;
-}
-
-.search-button {
-  background-color: $background-white;
-  border: $border-side-black;
-  width: 33px;
-  height: 33px;
-  margin-top: 3px;
-}
-
-.search-image {
-  @include full-size();
-}
-
-.search-image,
-.card-button,
-.navButton,
-.search-button {
-  &:hover {background-color: #cff2da};
-  &:active {background-color: #C3C2C6};
-}
-
-.search-input {
-  border: $border-side-black;
-  font-size: 100%;
-  height: 7vh;
-  margin: 3px 7px 0px 0px;
-  padding-left: 10px;
-  width: 90%;
 }
 
 .card-button {
