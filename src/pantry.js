@@ -74,14 +74,35 @@ class Pantry {
         body: JSON.stringify(ingredientObject),
       })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data);
+      })
       .catch(error => console.log(error.message))
     })
   }
 
-  removeConsumedIngredients() {
-    //taking the entire ingredient list of the recipe out of the user.pantry
-    //updating the user.pantry in the database via fetch
+  removeConsumedIngredients(user, chosenRecipe) {
+    let consumedIngredients = chosenRecipe.ingredients.map(el => {
+      return {
+        "userID": user.id,
+        "ingredientID": el.id,
+        "ingredientModification": -el.quantity.amount
+      }
+    })
+    consumedIngredients.forEach(ingredientObject => {
+      fetch("https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(ingredientObject),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => console.log(error.message))
+    })
   }
 
 }

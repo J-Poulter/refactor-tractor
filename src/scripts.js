@@ -88,7 +88,7 @@ function cardButtonConditionals(event) {
   } else if (event.target.classList.contains('buy-ingredients')) {
     pantry.updatePantryContent(user, recipeObject);
   } else if (event.target.classList.contains('cook-recipe')) {
-    pantry.removeConsumedIngredients(user);
+    pantry.removeConsumedIngredients(user, recipeObject);
   }
 }
 
