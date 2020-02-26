@@ -115,7 +115,6 @@ let domUpdates = {
   },
 
   displayDirections(event, cookbook, pantry, ingredientData, recipeData, user) {
-
     let newRecipeInfo = cookbook.recipes.find(recipe => {
       if (recipe.id === Number(event.target.dataset.id)) {
         return recipe;
@@ -159,13 +158,14 @@ let domUpdates = {
       $('.ingredients-confirmation').text(`You have all the ingredients needed for this recipe!`);
       $('.ingredients-cost').text('');
     }
-    $('.buy-ingredients').click(function() {
-      pantry.updatePantryContent(user, currentRecipe);
-    })
-
-    $('.cook-recipe').click(function() {
-      pantry.removeConsumedIngredients(user, currentRecipe);
-    })
+    this.updatePantryClickListener(user, pantry, currentRecipe);
+    // $('.buy-ingredients').click(function() {
+    //   pantry.updatePantryContent(user, currentRecipe);
+    // })
+    //
+    // $('.cook-recipe').click(function() {
+    //   pantry.removeConsumedIngredients(user, currentRecipe);
+    // })
   },
 
   populateRecipeInfo(currentRecipe, cost, missingIngredients, missingCost) {
@@ -186,6 +186,15 @@ let domUpdates = {
     <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
     </span></ol>
     </p>`);
+  },
+
+  updatePantryClickListener(user, pantry, currentRecipe) {
+    $('.buy-ingredients').click(function() {
+      pantry.updatePantryContent(user, currentRecipe);
+    })
+    $('.cook-recipe').click(function() {
+      pantry.removeConsumedIngredients(user, currentRecipe);
+    })
   }
 
 }
