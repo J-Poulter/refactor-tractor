@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 class Pantry {
   constructor(userIngredients, ingredientsData) {
     this.contents = userIngredients,
@@ -37,7 +39,7 @@ class Pantry {
   determineAdditionalNeededIngredients(chosenRecipe) {
     let ingredientsNeeded = this.compareRecipeToPantryIngredients(chosenRecipe);
     let neededQuantity = ingredientsNeeded.map(ingredient => {
-      return `<li>${ingredient.qty.toFixed(2)} ${ingredient.unit} - ${ingredient.name}</li>`
+      return `<li class="tempIng">${ingredient.qty.toFixed(2)} ${ingredient.unit} - ${ingredient.name}</li>`
     })
     return neededQuantity
   }
@@ -73,6 +75,8 @@ class Pantry {
       })
       .catch(error => console.log(error.message))
     })
+
+
   }
 
   removeConsumedIngredients(user, chosenRecipe) {
