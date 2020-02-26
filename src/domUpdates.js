@@ -88,16 +88,6 @@ let domUpdates = {
     }
   },
 
-  // BUTTON LISTENERS //
-  updatePantryClickListener(user, pantry, currentRecipe) {
-    $('.buy-ingredients').click(function() {
-      pantry.updatePantryContent(user, currentRecipe);
-    })
-    $('.cook-recipe').click(function() {
-      pantry.removeConsumedIngredients(user, currentRecipe);
-    })
-  },
-
   // POPULATE CARDS SECTION //
   populateCards(recipes, user) {
     $('.all-cards').html('');
@@ -138,8 +128,8 @@ let domUpdates = {
         <img data-id='${recipe.id}' tabindex='0' class='card-picture'
         src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
         </div>`)
-      })
-    },
+    })
+  },
 
   populateRecipeInfo(currentRecipe, cost, missingIngredients, missingCost) {
     $('.all-cards').addClass('all');
@@ -188,7 +178,7 @@ let domUpdates = {
     $('.buy-ingredients').click(function() {
       pantry.updatePantryContent(user, currentRecipe);
     })
-    
+
     $('.cook-recipe').click(function() {
       pantry.removeConsumedIngredients(user, currentRecipe);
     })

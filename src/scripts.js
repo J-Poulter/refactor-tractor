@@ -44,7 +44,7 @@ let user, pantry, cookbook;
 let favButton = document.querySelector('.view-favorites');
 let searchInput = document.querySelector('#search-input');
 let recipesToCookButton = document.querySelector('.view-recipe-to-cook');
-let homeButton = document.querySelector('.home');
+// let homeButton = document.querySelector('.home');
 let searchButton = document.querySelector('#search-button');
 let cardArea = document.querySelector('.all-cards');
 /////////////////////////////
