@@ -125,23 +125,24 @@ let domUpdates = {
     let cost = recipeObject.calculateCost().toFixed(2);
     let missingIngredients = pantry.determineAdditionalNeededIngredients(recipeObject);
     let missingCost = pantry.calculateCostOfAdditionalIngredients(recipeObject);
-    $('.all-cards').addClass('all');
-    $('.all-cards').html(
-      `<span><h3>${recipeObject.name}</h3>
-    <p class="ingredients-confirmation">Ingredients Needed:</p>
-    ${missingIngredients.join('')}
-    <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
-    <button class="close-recipe home">Close Recipe</button>
-    <button class="buy-ingredients">Buy Missing Ingredients</button>
-    <button class="cook-recipe">Cook Recipe</button>
-    </span>
-    <p class='all-recipe-info'>
-    <strong>It will cost: </strong><span class='cost recipe-info'>
-    $${cost}</span><br><br>
-    <strong>You will need: </strong><span class='ingredients recipe-info'></span>
-    <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
-    </span></ol>
-    </p>`);
+    this.populateRecipeInfo(recipeObject, cost, missingIngredients, missingCost);
+    // $('.all-cards').addClass('all');
+    // $('.all-cards').html(
+    //   `<span><h3>${recipeObject.name}</h3>
+    // <p class="ingredients-confirmation">Ingredients Needed:</p>
+    // ${missingIngredients.join('')}
+    // <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
+    // <button class="close-recipe home">Close Recipe</button>
+    // <button class="buy-ingredients">Buy Missing Ingredients</button>
+    // <button class="cook-recipe">Cook Recipe</button>
+    // </span>
+    // <p class='all-recipe-info'>
+    // <strong>It will cost: </strong><span class='cost recipe-info'>
+    // $${cost}</span><br><br>
+    // <strong>You will need: </strong><span class='ingredients recipe-info'></span>
+    // <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
+    // </span></ol>
+    // </p>`);
     recipeObject.ingredients.forEach(ingredient => {
       let ingredientName = recipeObject.ingredientsData.find(el => el.id === ingredient.id).name;
       $('.ingredients').prepend(`<ul><li>
@@ -165,6 +166,26 @@ let domUpdates = {
     $('.cook-recipe').click(function() {
       pantry.removeConsumedIngredients(user, recipeObject);
     })
+  },
+
+  populateRecipeInfo(recipeObject, cost, missingIngredients, missingCost) {
+    $('.all-cards').addClass('all');
+    $('.all-cards').html(
+      `<span><h3>${recipeObject.name}</h3>
+    <p class="ingredients-confirmation">Ingredients Needed:</p>
+    ${missingIngredients.join('')}
+    <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
+    <button class="close-recipe home">Close Recipe</button>
+    <button class="buy-ingredients">Buy Missing Ingredients</button>
+    <button class="cook-recipe">Cook Recipe</button>
+    </span>
+    <p class='all-recipe-info'>
+    <strong>It will cost: </strong><span class='cost recipe-info'>
+    $${cost}</span><br><br>
+    <strong>You will need: </strong><span class='ingredients recipe-info'></span>
+    <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
+    </span></ol>
+    </p>`);
   }
 
 }
