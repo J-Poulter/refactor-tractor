@@ -1,12 +1,13 @@
 import { expect } from 'chai';
+const chai = require('chai');
+const spies = require('chai-spies');
+chai.use(spies);
 
 import Pantry from '../src/pantry.js';
 import Recipe from '../src/recipe.js';
 import User from '../src/user.js';
 import recipeData from '../src/data/recipes.js';
 import ingredientsData from '../src/data/ingredients.js';
-
-
 
 describe('Pantry', function() {
 
@@ -92,12 +93,17 @@ describe('Pantry', function() {
   it('should be able to return the cost of the additional ingredients, individually and the total', function() {
     expect(pantry1.calculateCostOfAdditionalIngredients(recipeData[47])).to.deep.equal('34.24')
   });
-  //
-  // it.skip('should be able to update the Pantrys content', function() {
-  //   expect(pantry.updatePantryContent()).to.deep.equal()
-  // });
-  //
-  // it.skip('should be able to remove the ingredients consumed from making a recipe', function() {
-  //   expect(pantry.removeConsumedIngredients()).to.deep.equal()
-  // });
+
+  it ('should be able to update the contents of the pantry', function() {
+    chai.spy.on(pantry1, 'updatePantryContent', () => {});
+    pantry1.updatePantryContent(user1, recipe);
+    expect(pantry1.updatePantryContent).to.have.been.called(1);
+});
+
+  it('should be able to remove the ingredients consumed from making a recipe', function() {
+    chai.spy.on(pantry1, 'removeConsumedIngredients', () => {});
+    pantry1.removeConsumedIngredients(user1, recipe);
+    expect(pantry1.removeConsumedIngredients).to.have.been.called(1);
+  });
+
 })
