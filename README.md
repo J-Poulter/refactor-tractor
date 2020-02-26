@@ -13,7 +13,7 @@ When the user opens the dashboard, they can view a cookbook of recipes. The user
 [Cristina Peña](https://github.com/CLPena)
 
 #### In Action
-//Put gif here!
+![Using-whats-cookin-app](https://user-images.githubusercontent.com/51523262/75310128-f5a0c600-584a-11ea-93a7-96b20768fa11.gif)
 
 #### Project Next Steps
 In the creation of this project, we focused mainly on data and functionality. Moving forward, we'd like to revamp the design of the site to have a cleaner, more modern look that enhances UI/UX. We would also like to implement a feature where the user can view their pantry and contents outside of the context of a recipe.
