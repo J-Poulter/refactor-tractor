@@ -75,7 +75,8 @@ class Pantry {
       })
       .catch(error => console.log(error.message))
     })
-
+    $('.ingredients-confirmation').text(`You have all the ingredients needed for this recipe!`);
+    $('.ingredients-cost').text('');
 
   }
 
