@@ -20,16 +20,16 @@ describe('Pantry', function() {
       "name": "Saige O'Kon",
       "pantry":
       [{
-          "ingredient": 11477,
-          "amount": 1
-        },
-        {
-          "ingredient": 93820,
-          "amount": 1
-        },
-        {
-          "ingredient": 11297,
-          "amount": 3
+        "ingredient": 11477,
+        "amount": 1
+      },
+      {
+        "ingredient": 93820,
+        "amount": 1
+      },
+      {
+        "ingredient": 11297,
+        "amount": 3
       }]
     };
     userData2 = {
@@ -37,28 +37,28 @@ describe('Pantry', function() {
       "name": "Ab",
       "pantry":
       [{
-          "ingredient": 1041009,
-          "amount": 2
-        },
-        {
-          "ingredient": 10018413,
-          "amount": 1
-        },
-        {
-          "ingredient": 2044,
-          "amount": 3
-        },
-        {
-          "ingredient": 10111529,
-          "amount": 0.5
-        },
-        {
-          "ingredient": 4053,
-          "amount": 1
-        },
-        {
-          "ingredient": 11477,
-          "amount": 1
+        "ingredient": 1041009,
+        "amount": 2
+      },
+      {
+        "ingredient": 10018413,
+        "amount": 1
+      },
+      {
+        "ingredient": 2044,
+        "amount": 3
+      },
+      {
+        "ingredient": 10111529,
+        "amount": 0.5
+      },
+      {
+        "ingredient": 4053,
+        "amount": 1
+      },
+      {
+        "ingredient": 11477,
+        "amount": 1
       }]
     };
 
@@ -98,12 +98,11 @@ describe('Pantry', function() {
     chai.spy.on(pantry1, 'updatePantryContent', () => {});
     pantry1.updatePantryContent(user1, recipe);
     expect(pantry1.updatePantryContent).to.have.been.called(1);
-});
+  });
 
   it('should be able to remove the ingredients consumed from making a recipe', function() {
     chai.spy.on(pantry1, 'removeConsumedIngredients', () => {});
     pantry1.removeConsumedIngredients(user1, recipe);
     expect(pantry1.removeConsumedIngredients).to.have.been.called(1);
   });
-
 })
