@@ -33,7 +33,7 @@ let domUpdates = {
   createRecipeCards(selectedRecipeData) {
     selectedRecipeData.forEach(recipe => {
       $('.all-cards').prepend(
-      `<div id='${recipe.id}' class='card'>
+        `<div id='${recipe.id}' class='card'>
           <header data-id='${recipe.id}' class='card-header'>
             <label for='add-recipe-to-cook-button' class='hidden'>Click to add recipe</label>
             <button data-id='${recipe.id}' aria-label='add-recipe-to-cook-button' class='to-cook${recipe.id} add-recipe-to-cook-button card-button'>
@@ -127,7 +127,7 @@ let domUpdates = {
     let missingCost = pantry.calculateCostOfAdditionalIngredients(recipeObject);
     $('.all-cards').addClass('all');
     $('.all-cards').html(
-    `<span><h3>${recipeObject.name}</h3>
+      `<span><h3>${recipeObject.name}</h3>
     <p class="ingredients-confirmation">Ingredients Needed:</p>
     ${missingIngredients.join('')}
     <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
