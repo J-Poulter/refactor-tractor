@@ -158,11 +158,11 @@ let domUpdates = {
       $('.ingredients-confirmation').text(`You have all the ingredients needed for this recipe!`);
       $('.ingredients-cost').text('');
     }
-    $(".buy-ingredients").click(function() {
+    $('.buy-ingredients').click(function() {
       pantry.updatePantryContent(user, recipeObject);
     })
 
-    $(".cook-recipe").click(function() {
+    $('.cook-recipe').click(function() {
       pantry.removeConsumedIngredients(user, recipeObject);
     })
   }
