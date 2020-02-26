@@ -52,7 +52,7 @@ function searchRecipes() {
 }
 
 function handleFavorites() {
-domUpdates.viewFavorites(user, cookbook);
+  domUpdates.viewFavorites(user, cookbook);
 }
 
 function handleRecipesToCook() {
