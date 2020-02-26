@@ -1,21 +1,11 @@
 import $ from 'jquery';
 import Recipe from './recipe';
 
-// $('document').click((event) => {
-//   $(event.target).hasClass()cardButtonConditionals(event);
-// )}
+let recipeObject;
 
 let domUpdates = {
   greetUser(user) {
     $('.user-name').html(user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0])
-  },
-
-  x(event, pantry, user, recipeObject) {
-    if ($(event.target).hasClass('buy-ingredients')) {
-      pantry.updatePantryContent(user, recipeObject);
-    } else if ($(event.target).hasClass('cook-recipe')) {
-      pantry.removeConsumedIngredients(user, recipeObject);
-    }
   },
 
   viewFavorites(user, cookbook) {
@@ -124,7 +114,8 @@ let domUpdates = {
     }
   },
 
-  displayDirections(event, cookbook, pantry, ingredientData, recipeData, recipeObject) {
+  displayDirections(event, cookbook, pantry, ingredientData, recipeData, user) {
+
     let newRecipeInfo = cookbook.recipes.find(recipe => {
       if (recipe.id === Number(event.target.dataset.id)) {
         return recipe;
@@ -167,6 +158,13 @@ let domUpdates = {
       $('.ingredients-confirmation').text(`You have all the ingredients needed for this recipe!`);
       $('.ingredients-cost').text('');
     }
+    $(".buy-ingredients").click(function() {
+      pantry.updatePantryContent(user, recipeObject);
+    })
+
+    $(".cook-recipe").click(function() {
+      pantry.removeConsumedIngredients(user, recipeObject);
+    })
   }
 
 }
