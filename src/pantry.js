@@ -78,7 +78,6 @@ class Pantry {
     $('.ingredients-confirmation').text(`You have all the ingredients needed for this recipe!`);
     $('.ingredients-cost').text('');
     $('li.tempIng').remove();
-
   }
 
   removeConsumedIngredients(user, chosenRecipe) {
@@ -104,7 +103,6 @@ class Pantry {
       .catch(error => console.log(error.message))
     })
   }
-
 }
 
 export default Pantry;
