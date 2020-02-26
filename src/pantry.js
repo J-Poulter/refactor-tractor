@@ -24,7 +24,7 @@ class Pantry {
       let pantryMatch = this.contents.find(item => {
         if (ingredient.id === item.ingredient) {
           ingredient.qty -= item.amount
-        };
+        }
       });
     });
     let ingredientsNeeded = ingredientDetails.filter(ingr => ingr.qty > 0);
@@ -47,7 +47,7 @@ class Pantry {
   calculateCostOfAdditionalIngredients(chosenRecipe) {
     let ingredientsNeeded = this.compareRecipeToPantryIngredients(chosenRecipe);
     let totalCost = ingredientsNeeded.reduce((cost, cur) => {
-      cost += (cur.qty * cur.cost)/100
+      cost += (cur.qty * cur.cost) / 100
       return cost
     }, 0).toFixed(2)
     return totalCost;
@@ -69,11 +69,11 @@ class Pantry {
         },
         body: JSON.stringify(ingredientObject),
       })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => console.log(error.message))
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        })
+        .catch(error => console.log(error.message))
     })
     $('.ingredients-confirmation').text(`You have all the ingredients needed for this recipe!`);
     $('.ingredients-cost').text('');
@@ -96,11 +96,11 @@ class Pantry {
         },
         body: JSON.stringify(ingredientObject),
       })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => console.log(error.message))
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        })
+        .catch(error => console.log(error.message))
     })
   }
 }

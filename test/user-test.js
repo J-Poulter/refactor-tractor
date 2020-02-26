@@ -97,31 +97,30 @@ describe('User', function() {
       expect(user1.filterFavorites('antipasti')).to.deep.equal([recipeData[0]]);
     });
 
-    it('Should be able to search favoriteRecipes ingredient', function(){
+    it('Should be able to search favoriteRecipes ingredient', function() {
       user1.addToFavorites(recipeData[0]);
       user1.addToFavorites(recipeData[1]);
 
       expect(user1.findFavorites('egg')).to.deep.equal([recipeData[0]]);
     });
 
-    it('Should be able to return multiple search of favoriteRecipes by ingredient'
-      , function(){
-        user1.addToFavorites(recipeData[0]);
-        user1.addToFavorites(recipeData[1]);
-        user1.addToFavorites(recipeData[5]);
+    it('Should be able to return multiple search of favoriteRecipes by ingredient', function() {
+      user1.addToFavorites(recipeData[0]);
+      user1.addToFavorites(recipeData[1]);
+      user1.addToFavorites(recipeData[5]);
 
-        expect(user1.findFavorites('egg')).to.deep.equal([recipeData[0],
-          recipeData[5]]);
-      });
+      expect(user1.findFavorites('egg')).to.deep.equal([recipeData[0],
+        recipeData[5]]);
+    });
 
-    it('Should be able to search favoriteRecipes by name', function(){
+    it('Should be able to search favoriteRecipes by name', function() {
       user1.addToFavorites(recipeData[0]);
       user1.addToFavorites(recipeData[1]);
 
       expect(user1.findFavorites('Chocolate')).to.deep.equal([recipeData[0]]);
     });
 
-    it('Should be able to search multiple favoriteRecipes by name', function(){
+    it('Should be able to search multiple favoriteRecipes by name', function() {
       user1.addToFavorites(recipeData[0]);
       user1.addToFavorites(recipeData[1]);
       user1.addToFavorites(recipeData[3]);
@@ -169,14 +168,14 @@ describe('User', function() {
       expect(user1.filterRecipesToCook('antipasti')).to.deep.equal([recipeData[0]]);
     });
 
-    it('Should be able to search recipeToCook ingredient', function(){
+    it('Should be able to search recipeToCook ingredient', function() {
       user1.addToRecipeToCook(recipeData[0]);
       user1.addToRecipeToCook(recipeData[1]);
 
       expect(user1.findRecipesToCook('egg')).to.deep.equal([recipeData[0]]);
     });
 
-    it('Should be able to search recipeToCook by name', function(){
+    it('Should be able to search recipeToCook by name', function() {
       user1.addToRecipeToCook(recipeData[0]);
       user1.addToRecipeToCook(recipeData[1]);
 
