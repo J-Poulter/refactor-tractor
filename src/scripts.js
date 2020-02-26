@@ -1,4 +1,6 @@
 import './css/styles.scss';
+import $ from 'jquery';
+import domUpdates from './domUpdates';
 
 import Pantry from './pantry';
 import Recipe from './recipe';
@@ -25,29 +27,62 @@ Promise.all([recipeData, ingredientData, users])
     recipeData = data[0];
     ingredientData = data[1];
     users = data[2];
-    onStartup(users, ingredientData, recipeData)
+    onStartup(users, ingredientData, recipeData);
+    recipesToCookButton.addEventListener('click', viewRecipesToCook);
+    favButton.addEventListener('click', handleFavorites);
+    cardArea.addEventListener('keyup', checkKeyPressed);
+    searchButton.addEventListener('click', searchRecipes);
+    searchInput.addEventListener('keyup', checkKeyPressedForSearch);
+    document.addEventListener('click', cardButtonConditionals);
   })
   .catch(error => console.log(error.message))
 
+let user, pantry, cookbook, recipeObject;
 let favButton = document.querySelector('.view-favorites');
 let searchInput = document.querySelector('#search-input');
 let recipesToCookButton = document.querySelector('.view-recipe-to-cook');
 let homeButton = document.querySelector('.home');
 let searchButton = document.querySelector('#search-button');
 let cardArea = document.querySelector('.all-cards');
-let user, pantry, cookbook, recipeObject;
 
-recipesToCookButton.addEventListener('click', viewRecipesToCook);
-favButton.addEventListener('click', viewFavorites);
-cardArea.addEventListener('keyup', checkKeyPressed);
-searchButton.addEventListener('click', searchRecipes);
-searchInput.addEventListener('keyup', checkKeyPressedForSearch);
-document.addEventListener('click', cardButtonConditionals)
+// recipesToCookButton.addEventListener('click', viewRecipesToCook);
+// favButton.addEventListener('click', domUpdates.viewFavorites(user));
+// cardArea.addEventListener('keyup', checkKeyPressed);
+// searchButton.addEventListener('click', searchRecipes);
+// searchInput.addEventListener('keyup', checkKeyPressedForSearch);
+// document.addEventListener('click', cardButtonConditionals);
+
+// $('.home').click(() => {
+//   cardButtonConditionals();
+// });
+// $('.view-recipe-to-cook').click(() => {
+//   viewRecipesToCook();
+// });
+// $('.view-favorites').click(() => {
+//   viewFavorites();
+// });
+// $('.all-cards').keyup(() => {
+//   checkKeyPressed();
+// });
+// $('#search-button').click(() => {
+//   searchRecipes();
+// });
+// $('#search-input').keyup(() => {
+//   checkKeyPressedForSearch();
+// });
+// $(document).click(() => {
+//   cardButtonConditionals();
+// });
+
 
 function searchRecipes() {
   let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
-  populateCards(searchResults);
+  domUpdates.populateCards(searchResults, user);
   searchInput.value = ''
+}
+
+function handleFavorites() {
+  domUpdates.viewFavorites(user, cookbook);
 }
 
 // ONLOAD DISPLAY //
@@ -59,15 +94,15 @@ function onStartup(userData, ingredientData, recipeData) {
   user = new User(newUser)
   pantry = new Pantry(newUser.pantry, ingredientData)
   cookbook = new Cookbook(recipeData, ingredientData);
-  populateCards(cookbook.recipes);
-  greetUser();
+  domUpdates.populateCards(cookbook.recipes, user);
+  domUpdates.greetUser(user);
 }
 
-function greetUser() {
-  const userName = document.querySelector('.user-name');
-  userName.innerHTML =
-  user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
-}
+// function greetUser() {
+//   const userName = document.querySelector('.user-name');
+//   userName.innerHTML =
+//   user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
+// }
 /////////////////////////////
 
 // CONDITIONALS //
@@ -79,7 +114,7 @@ function cardButtonConditionals(event) {
   } else if (event.target.classList.contains('home')) {
     favButton.innerHTML = 'View Favorites';
     recipesToCookButton.innerHTML = 'View Recipes to Cook';
-    populateCards(cookbook.recipes);
+    populateCards(cookbook.recipes, user);
   } else if (event.target.classList.contains('add-recipe-to-cook-button')) {
     recipeToCookCard(event);
   } else if (event.target.classList.contains('buy-ingredients')) {
@@ -103,19 +138,19 @@ function checkKeyPressedForSearch(event) {
 /////////////////////////////
 
 // FAVORITE FUNCTIONS //
-function viewFavorites() {
-  cardArea.classList.remove('all')
-  if (!user.favoriteRecipes.length) {
-    favButton.innerHTML = 'No favorites!';
-    populateCards(cookbook.recipes);
-    return
-  } else {
-    favButton.innerHTML = 'Refresh Favorites'
-    cardArea.innerHTML = '';
-    createRecipeCards(user.favoriteRecipes);
-  }
-  checkFavoriteActive();
-}
+// function viewFavorites() {
+//   cardArea.classList.remove('all')
+//   if (!user.favoriteRecipes.length) {
+//     favButton.innerHTML = 'No favorites!';
+//     populateCards(cookbook.recipes);
+//     return
+//   } else {
+//     favButton.innerHTML = 'Refresh Favorites'
+//     cardArea.innerHTML = '';
+//     createRecipeCards(user.favoriteRecipes);
+//   }
+//   checkFavoriteActive();
+// }
 
 function favoriteCard(event) {
   let specificRecipe = cookbook.recipes.find(recipe => {
@@ -133,15 +168,15 @@ function favoriteCard(event) {
   }
 }
 
-function checkFavoriteActive() {
-  if (!user.favoriteRecipes.length) {
-    return
-  } else {
-    user.favoriteRecipes.forEach(recipe => {
-      document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
-    })
-  }
-}
+// function checkFavoriteActive() {
+//   if (!user.favoriteRecipes.length) {
+//     return
+//   } else {
+//     user.favoriteRecipes.forEach(recipe => {
+//       document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
+//     })
+//   }
+// }
 /////////////////////////////
 
 // RECIPE TO COOK FUNCTIONS //
@@ -149,7 +184,7 @@ function viewRecipesToCook() {
   cardArea.classList.remove('all')
   if (!user.recipesToCook.length) {
     recipesToCookButton.innerHTML = 'No recipes saved!';
-    populateCards(cookbook.recipes);
+    populateCards(cookbook.recipes, user);
     return
   } else {
     recipesToCookButton.innerHTML = 'Refresh Recipes to Cook'
@@ -187,13 +222,13 @@ function checkRecipeToCookActive() {
 /////////////////////////////
 
 // RECIPE DISPLAY //
-function populateCards(recipes) {
-  cardArea.innerHTML = '';
-  cardArea.classList.remove('all')
-  createRecipeCards(recipes);
-  checkFavoriteActive();
-  checkRecipeToCookActive();
-};
+// function populateCards(recipes) {
+//   cardArea.innerHTML = '';
+//   cardArea.classList.remove('all')
+//   createRecipeCards(recipes);
+//   checkFavoriteActive();
+//   checkRecipeToCookActive();
+// };
 
 function createRecipeCards(selectedRecipeData) {
   selectedRecipeData.forEach(recipe => {
