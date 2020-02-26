@@ -125,48 +125,13 @@ let domUpdates = {
     let missingIngredients = pantry.determineAdditionalNeededIngredients(currentRecipe);
     let missingCost = pantry.calculateCostOfAdditionalIngredients(currentRecipe);
     this.populateRecipeInfo(currentRecipe, cost, missingIngredients, missingCost);
-    // $('.all-cards').addClass('all');
-    // $('.all-cards').html(
-    //   `<span><h3>${recipeObject.name}</h3>
-    // <p class="ingredients-confirmation">Ingredients Needed:</p>
-    // ${missingIngredients.join('')}
-    // <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
-    // <button class="close-recipe home">Close Recipe</button>
-    // <button class="buy-ingredients">Buy Missing Ingredients</button>
-    // <button class="cook-recipe">Cook Recipe</button>
-    // </span>
-    // <p class='all-recipe-info'>
-    // <strong>It will cost: </strong><span class='cost recipe-info'>
-    // $${cost}</span><br><br>
-    // <strong>You will need: </strong><span class='ingredients recipe-info'></span>
-    // <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
-    // </span></ol>
-    // </p>`);
     this.displayCurrentRecipeInfo(currentRecipe);
-    // currentRecipe.ingredients.forEach(ingredient => {
-    //   let ingredientName = currentRecipe.ingredientsData.find(el => el.id === ingredient.id).name;
-    //   $('.ingredients').prepend(`<ul><li>
-    //   ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
-    //   ${ingredientName}</li></ul>
-    //   `)
-    // })
-    // currentRecipe.instructions.forEach(instruction => {
-    //   $('.instructions').before(`<li>
-    //   ${instruction.instruction}</li>
-    //   `)
-    // })
-    if (missingIngredients.length === 0) {
-      $('.ingredients-confirmation').text(`You have all the ingredients needed for this recipe!`);
-      $('.ingredients-cost').text('');
-    }
+    this.checkMissingIngredients(missingIngredients);
+    // if (missingIngredients.length === 0) {
+    //   $('.ingredients-confirmation').text(`You have all the ingredients needed for this recipe!`);
+    //   $('.ingredients-cost').text('');
+    // }
     this.updatePantryClickListener(user, pantry, currentRecipe);
-    // $('.buy-ingredients').click(function() {
-    //   pantry.updatePantryContent(user, currentRecipe);
-    // })
-    //
-    // $('.cook-recipe').click(function() {
-    //   pantry.removeConsumedIngredients(user, currentRecipe);
-    // })
   },
 
   populateRecipeInfo(currentRecipe, cost, missingIngredients, missingCost) {
@@ -211,6 +176,13 @@ let domUpdates = {
       ${instruction.instruction}</li>
       `)
     })
+  },
+
+  checkMissingIngredients(missingIngredients) {
+    if (missingIngredients.length === 0) {
+      $('.ingredients-confirmation').text(`You have all the ingredients needed for this recipe!`);
+      $('.ingredients-cost').text('');
+    }
   }
 
 }
