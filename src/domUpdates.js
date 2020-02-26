@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Recipe from './recipe';
 
-let recipeObject;
+// let recipeObject;
 
 let domUpdates = {
   greetUser(user) {
@@ -121,11 +121,11 @@ let domUpdates = {
         return recipe;
       }
     })
-    recipeObject = new Recipe(newRecipeInfo, ingredientData, recipeData);
-    let cost = recipeObject.calculateCost().toFixed(2);
-    let missingIngredients = pantry.determineAdditionalNeededIngredients(recipeObject);
-    let missingCost = pantry.calculateCostOfAdditionalIngredients(recipeObject);
-    this.populateRecipeInfo(recipeObject, cost, missingIngredients, missingCost);
+    let currentRecipe = new Recipe(newRecipeInfo, ingredientData, recipeData);
+    let cost = currentRecipe.calculateCost().toFixed(2);
+    let missingIngredients = pantry.determineAdditionalNeededIngredients(currentRecipe);
+    let missingCost = pantry.calculateCostOfAdditionalIngredients(currentRecipe);
+    this.populateRecipeInfo(currentRecipe, cost, missingIngredients, missingCost);
     // $('.all-cards').addClass('all');
     // $('.all-cards').html(
     //   `<span><h3>${recipeObject.name}</h3>
@@ -143,14 +143,14 @@ let domUpdates = {
     // <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
     // </span></ol>
     // </p>`);
-    recipeObject.ingredients.forEach(ingredient => {
-      let ingredientName = recipeObject.ingredientsData.find(el => el.id === ingredient.id).name;
+    currentRecipe.ingredients.forEach(ingredient => {
+      let ingredientName = currentRecipe.ingredientsData.find(el => el.id === ingredient.id).name;
       $('.ingredients').prepend(`<ul><li>
       ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
       ${ingredientName}</li></ul>
       `)
     })
-    recipeObject.instructions.forEach(instruction => {
+    currentRecipe.instructions.forEach(instruction => {
       $('.instructions').before(`<li>
       ${instruction.instruction}</li>
       `)
@@ -160,18 +160,18 @@ let domUpdates = {
       $('.ingredients-cost').text('');
     }
     $('.buy-ingredients').click(function() {
-      pantry.updatePantryContent(user, recipeObject);
+      pantry.updatePantryContent(user, currentRecipe);
     })
 
     $('.cook-recipe').click(function() {
-      pantry.removeConsumedIngredients(user, recipeObject);
+      pantry.removeConsumedIngredients(user, currentRecipe);
     })
   },
 
-  populateRecipeInfo(recipeObject, cost, missingIngredients, missingCost) {
+  populateRecipeInfo(currentRecipe, cost, missingIngredients, missingCost) {
     $('.all-cards').addClass('all');
     $('.all-cards').html(
-      `<span><h3>${recipeObject.name}</h3>
+      `<span><h3>${currentRecipe.name}</h3>
     <p class="ingredients-confirmation">Ingredients Needed:</p>
     ${missingIngredients.join('')}
     <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
