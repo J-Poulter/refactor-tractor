@@ -7,6 +7,7 @@ import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 
+// FETCH DATA //
 let users = fetch("https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData")
   .then(response => response.json())
   .then(data => data.wcUsersData)
@@ -36,7 +37,9 @@ Promise.all([recipeData, ingredientData, users])
     document.addEventListener('click', cardButtonConditionals);
   })
   .catch(error => console.log(error.message))
+/////////////////////////////
 
+// VARIABLES //
 let user, pantry, cookbook;
 let favButton = document.querySelector('.view-favorites');
 let searchInput = document.querySelector('#search-input');
@@ -44,13 +47,9 @@ let recipesToCookButton = document.querySelector('.view-recipe-to-cook');
 let homeButton = document.querySelector('.home');
 let searchButton = document.querySelector('#search-button');
 let cardArea = document.querySelector('.all-cards');
+/////////////////////////////
 
-function searchRecipes() {
-  let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
-  domUpdates.populateCards(searchResults, user);
-  searchInput.value = ''
-}
-
+// HANDLERS //
 function handleFavorites() {
   domUpdates.viewFavorites(user, cookbook);
 }
@@ -58,6 +57,7 @@ function handleFavorites() {
 function handleRecipesToCook() {
   domUpdates.viewRecipesToCook(user, cookbook);
 }
+/////////////////////////////
 
 // ONLOAD DISPLAY //
 function onStartup(userData, ingredientData, recipeData) {
@@ -100,3 +100,10 @@ function checkKeyPressedForSearch(event) {
   }
 }
 /////////////////////////////
+
+// SEARCH FUNCTION //
+function searchRecipes() {
+  let searchResults = cookbook.findRecipe(searchInput.value.toLowerCase());
+  domUpdates.populateCards(searchResults, user);
+  searchInput.value = ''
+}
