@@ -1,8 +1,21 @@
 import $ from 'jquery';
+import Recipe from './recipe';
+
+// $('document').click((event) => {
+//   $(event.target).hasClass()cardButtonConditionals(event);
+// )}
 
 let domUpdates = {
   greetUser(user) {
     $('.user-name').html(user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0])
+  },
+
+  x(event, pantry, user, recipeObject) {
+    if ($(event.target).hasClass('buy-ingredients')) {
+      pantry.updatePantryContent(user, recipeObject);
+    } else if ($(event.target).hasClass('cook-recipe')) {
+      pantry.removeConsumedIngredients(user, recipeObject);
+    }
   },
 
   viewFavorites(user, cookbook) {
@@ -24,7 +37,7 @@ let domUpdates = {
     $('.all-cards').removeClass('all');
     this.createRecipeCards(recipes);
     this.checkFavoriteActive(user);
-    // checkRecipeToCookActive();
+    this.checkRecipeToCookActive(user);
   },
 
   createRecipeCards(selectedRecipeData) {
@@ -53,8 +66,108 @@ let domUpdates = {
         $(`.favorite${recipe.id}`).addClass('favorite-active')
       })
     }
-  }
+  },
 
+  checkRecipeToCookActive(user) {
+    if (!user.recipesToCook.length) {
+      return
+    } else {
+      user.recipesToCook.forEach(recipe => {
+        $(`.to-cook${recipe.id}`).addClass('to-cook-active');
+      })
+    }
+  },
+
+  viewRecipesToCook(user, cookbook) {
+    $('.all-cards').removeClass('all')
+    if (!user.recipesToCook.length) {
+      $('.view-recipe-to-cook').html('No recipes saved!');
+      this.populateCards(cookbook.recipes, user);
+      return
+    } else {
+      $('.all-cards').html('');
+      $('.view-recipe-to-cook').html('Refresh Recipes to Cook');
+      this.createRecipeCards(user.recipesToCook);
+    }
+    this.checkRecipeToCookActive(user);
+  },
+
+  favoriteCard(event, cookbook, user) {
+    let specificRecipe = cookbook.recipes.find(recipe => {
+      if (recipe.id  === Number(event.target.dataset.id)) {
+        return recipe;
+      }
+    })
+    if (!$(event.target).hasClass('favorite-active')) {
+      $(event.target).addClass('favorite-active');
+      $('.view-favorites').html('View Favorites');
+      user.addToFavorites(specificRecipe);
+    } else if ($(event.target).hasClass('favorite-active')) {
+      $(event.target).removeClass('favorite-active');
+      user.removeFromFavorites(specificRecipe)
+    }
+  },
+
+  recipeToCookCard(event, cookbook, user) {
+    let specificRecipe = cookbook.recipes.find(recipe => {
+      if (recipe.id  === Number(event.target.dataset.id)) {
+        return recipe;
+      }
+    })
+    if (!$(event.target).hasClass('to-cook-active')) {
+      $(event.target).addClass('to-cook-active');
+      $('.view-recipe-to-cook').html('View Recipes to Cook');
+      user.addToRecipeToCook(specificRecipe);
+    } else if ($(event.target).hasClass('to-cook-active')) {
+      $(event.target).removeClass('to-cook-active');
+      user.removeFromRecipeToCook(specificRecipe);
+    }
+  },
+
+  displayDirections(event, cookbook, pantry, ingredientData, recipeData, recipeObject) {
+    let newRecipeInfo = cookbook.recipes.find(recipe => {
+      if (recipe.id === Number(event.target.dataset.id)) {
+        return recipe;
+      }
+    })
+    recipeObject = new Recipe(newRecipeInfo, ingredientData, recipeData);
+    let cost = recipeObject.calculateCost().toFixed(2);
+    let missingIngredients = pantry.determineAdditionalNeededIngredients(recipeObject);
+    let missingCost = pantry.calculateCostOfAdditionalIngredients(recipeObject);
+    $('.all-cards').addClass('all');
+    $('.all-cards').html(
+    `<span><h3>${recipeObject.name}</h3>
+    <p class="ingredients-confirmation">Ingredients Needed:</p>
+    ${missingIngredients.join('')}
+    <p class="ingredients-cost"> Cost of Missing Ingredients: $${missingCost}</p>
+    <button class="close-recipe home">Close Recipe</button>
+    <button class="buy-ingredients">Buy Missing Ingredients</button>
+    <button class="cook-recipe">Cook Recipe</button>
+    </span>
+    <p class='all-recipe-info'>
+    <strong>It will cost: </strong><span class='cost recipe-info'>
+    $${cost}</span><br><br>
+    <strong>You will need: </strong><span class='ingredients recipe-info'></span>
+    <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
+    </span></ol>
+    </p>`);
+    recipeObject.ingredients.forEach(ingredient => {
+      let ingredientName = recipeObject.ingredientsData.find(el => el.id === ingredient.id).name;
+      $('.ingredients').prepend(`<ul><li>
+      ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
+      ${ingredientName}</li></ul>
+      `)
+    })
+    recipeObject.instructions.forEach(instruction => {
+      $('.instructions').before(`<li>
+      ${instruction.instruction}</li>
+      `)
+    })
+    if (missingIngredients.length === 0) {
+      $('.ingredients-confirmation').text(`You have all the ingredients needed for this recipe!`);
+      $('.ingredients-cost').text('');
+    }
+  }
 
 }
 
