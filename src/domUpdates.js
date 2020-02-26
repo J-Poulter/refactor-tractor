@@ -142,18 +142,19 @@ let domUpdates = {
     // <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
     // </span></ol>
     // </p>`);
-    currentRecipe.ingredients.forEach(ingredient => {
-      let ingredientName = currentRecipe.ingredientsData.find(el => el.id === ingredient.id).name;
-      $('.ingredients').prepend(`<ul><li>
-      ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
-      ${ingredientName}</li></ul>
-      `)
-    })
-    currentRecipe.instructions.forEach(instruction => {
-      $('.instructions').before(`<li>
-      ${instruction.instruction}</li>
-      `)
-    })
+    this.displayCurrentRecipeInfo(currentRecipe);
+    // currentRecipe.ingredients.forEach(ingredient => {
+    //   let ingredientName = currentRecipe.ingredientsData.find(el => el.id === ingredient.id).name;
+    //   $('.ingredients').prepend(`<ul><li>
+    //   ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
+    //   ${ingredientName}</li></ul>
+    //   `)
+    // })
+    // currentRecipe.instructions.forEach(instruction => {
+    //   $('.instructions').before(`<li>
+    //   ${instruction.instruction}</li>
+    //   `)
+    // })
     if (missingIngredients.length === 0) {
       $('.ingredients-confirmation').text(`You have all the ingredients needed for this recipe!`);
       $('.ingredients-cost').text('');
@@ -194,6 +195,21 @@ let domUpdates = {
     })
     $('.cook-recipe').click(function() {
       pantry.removeConsumedIngredients(user, currentRecipe);
+    })
+  },
+
+  displayCurrentRecipeInfo(currentRecipe) {
+    currentRecipe.ingredients.forEach(ingredient => {
+      let ingredientName = currentRecipe.ingredientsData.find(el => el.id === ingredient.id).name;
+      $('.ingredients').prepend(`<ul><li>
+      ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
+      ${ingredientName}</li></ul>
+      `)
+    })
+    currentRecipe.instructions.forEach(instruction => {
+      $('.instructions').before(`<li>
+      ${instruction.instruction}</li>
+      `)
     })
   }
 
