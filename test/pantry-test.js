@@ -94,21 +94,16 @@ describe('Pantry', function() {
     expect(pantry1.calculateCostOfAdditionalIngredients(recipeData[47])).to.deep.equal('34.24')
   });
 
-  it.skip('should be able to update the pantrys content', function() {
-    global.fetch = new Promise((resolve, reject) => {
-      // resolve("Success!");
-      // reject("BOO")
-    });
-    chai.spy.on(fetch, ['then', 'catch'], () => {});
-    expect(fetch("https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData")).to.be.called(2);
-  })
+  it ('should be able to update the contents of the pantry', function() {
+    chai.spy.on(pantry1, 'updatePantryContent', () => {});
+    pantry1.updatePantryContent(user1, recipe);
+    expect(pantry1.updatePantryContent).to.have.been.called(1);
+});
 
-  //
-  // it.skip('should be able to update the Pantrys content', function() {
-  //   expect(pantry.updatePantryContent()).to.deep.equal()
-  // });
-  //
-  // it.skip('should be able to remove the ingredients consumed from making a recipe', function() {
-  //   expect(pantry.removeConsumedIngredients()).to.deep.equal()
-  // });
+  it('should be able to remove the ingredients consumed from making a recipe', function() {
+    chai.spy.on(pantry1, 'removeConsumedIngredients', () => {});
+    pantry1.removeConsumedIngredients(user1, recipe);
+    expect(pantry1.removeConsumedIngredients).to.have.been.called(1);
+  });
+
 })
